@@ -1,27 +1,86 @@
-# Embedded
+# Bedify Guest Tools
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9.
+Here, you'll find a collection of guest tools designed specifically for hotel owners to enhance the guest experience. Currently, this includes an embeddable booking engine, with plans to introduce a guest self-service portal in the near future. 
 
-## Development server
+We have made this set of tools open source so that developers can help improve the guest-tools and even get a better insight into making their own applications on top of the Bedify Eco System.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Bedify Account
+You will need an bedify account in order to get the guest tools up and running, head over to https://bedify.net to get your account. Once you have an account you can go to Bedify -> Settings and create an BookingEngine. You would need the tenantId and BookingEngineId in order to have yourself a complete test environment.
 
-## Code scaffolding
+## Get Started
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Clone the repository
+2.  run `ng serve --port 5000`. 
+3. Open your fav browser and head to http://localhost:5000/{tenantId}/{bookingEngineId}
 
-## Build
+## Embed Into WordPress Page
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+First you need to have a code snippet added to your webpage, then  you can add custom html code to get the Bookingengine.
 
-## Running unit tests
+1. Install plugin "Code Snippets"
+2. Go to Settings -> Sippets -> Add New
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Name it "Bedify Embeddeable Booking Engine" and add the following content
 
-## Running end-to-end tests
+```
+function embed_bookingengine_assets() {
+    // Check if we are on the "bookingengine" page
+    if (is_page('bookingengine')) { // Replace 'bookingengine' with the slug or ID of your page
+        ?>
+        <!-- Include CSS -->
+        <link rel="stylesheet" href="https://embedded.bedify.net/styles.css">
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+        <!-- Include Scripts -->
+        <script src="https://unpkg.com/@webcomponents/custom-elements@latest/custom-elements.min.js"></script>
+        <script src="https://unpkg.com/zone.js"></script>
+        <script type="module" src="https://embedded.bedify.net/polyfills.js" defer></script>
+        <script type="module" src="https://embedded.bedify.net/main.js" defer></script>
+        <script src="https://kit.fontawesome.com/8ade590d6c.js" crossorigin="anonymous"></script>
+
+        <!-- Add Inline Styles -->
+        <style>
+            .bedify-header-outer {
+                padding-top: 30px !important;
+                padding-bottom: 0px !important;
+            }
+            
+            .bedify-header-inner {
+                margin-bottom: 30px !important;
+                border-radius: 5px;
+                background-color: #F6F6F6;
+            }
+
+            .bedify-content-inner {
+                background-color: #F6F6F6;
+                padding: 20px;
+                border-radius: 5px;
+            }
+
+            .bedify-button {
+                background-color: #2569ad;
+                color: #FFF;
+            }
+        </style>
+        <?php
+    }
+}
+```
+
+Modify the style as you see fit and also make sure your pagename is set properly.
+
+4. Now navigate to your page and add the following into your page block as "Custom html". Make sure to replace the tenantId and bookingEngineId with the ones you got from bedify.
+
+```
+<bedify-header 
+   successurl="https://bedify.net/bookingengine/?paymentstatus=success",
+   failedurl="https://bedify.net/bookingengine/?paymentstatus=failed",
+   configs='[
+       { "tenantId" : "{tenantId}", "bookingEngineId": "{bookingEngineId}", "name" : "Testhotel" }
+   ]'>
+</bedify-header>
+<bedify-content></bedify-content>
+```
 
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+We are eager to help you, please contact us at https://bedify.net
