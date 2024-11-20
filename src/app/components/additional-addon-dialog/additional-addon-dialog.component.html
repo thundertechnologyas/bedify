@@ -1,0 +1,24 @@
+<div mat-dialog-title>
+    
+        {{
+            'bookingengine.61' | translate 
+        }}
+
+</div>
+
+<mat-dialog-content>
+    <div class="optional">
+        {{
+            'bookingengine.62' | translate
+        }}
+    </div>
+
+    <div *ngFor="let optinalAddon of this.optionalAddons">
+        <app-addtional-product-view [optionaladdon]="optinalAddon" (change)="this.addonChanged($event, optinalAddon)"></app-addtional-product-view>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions [align]="'center'">
+    <button mat-flat-button color="primary" *ngIf="this.selectedAddons.length == 0" [mat-dialog-close]="false">No thanks</button>
+    <button mat-flat-button color="primary" *ngIf="this.selectedAddons.length > 0" [mat-dialog-close]="this.selectedAddons"> Add </button>
+</mat-dialog-actions>

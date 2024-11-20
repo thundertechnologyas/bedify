@@ -1,0 +1,48 @@
+.companyslider {
+  margin-left: -35px;
+  text-align: center;
+}
+
+.companyslider .text {
+  font-size: 18px;
+  padding-left: 20px;
+  font-weight: 500;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.companyname,
+.address {
+  flex: 1 1 100%;
+}
+
+.postbox,
+.prefix {
+  flex: 0 0 80px;
+}
+
+.city,
+.phone {
+  flex: 1 1 calc(100% - 100px);
+}
+
+.email {
+  flex: 1 1 100%;
+}
+
+.company {
+  background-color: #FFF;
+  border-radius: 5px;
+  box-sizing: border-box;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 20px;
+}

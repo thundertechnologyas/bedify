@@ -1,0 +1,67 @@
+:host .bedify-content-inner {
+  padding: 0px;
+}
+
+.guestinfoarea {
+  text-align: center;
+  margin-top: 20px;
+  border-radius: 5px;
+  position: relative;
+  padding-top: 20px;
+}
+
+.guesttop {
+  text-align: left;
+  font-size: 17px;
+  padding-top: 16px;
+  padding-left: 86px;
+  line-height: 0px;
+  margin-bottom: -8px;
+  font-weight: 00;
+  font-size: 20px;
+}
+
+.subinfo {
+  padding-top: 20px;
+  text-align: center;
+  font-weight: 300;
+}
+
+
+.roomtitle {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 300;
+  padding: 20px;
+  text-align: left;
+  border-bottom: dashed 3px #DDD;
+  margin-bottom: 30px;
+} 
+
+.rooms {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+
+.roomname {
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.dates,
+.price {
+  color: #333;
+}
+
+.dates i,
+.price i {
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+}
+
+.bedify_extras {
+  margin-left: 38px;
+}

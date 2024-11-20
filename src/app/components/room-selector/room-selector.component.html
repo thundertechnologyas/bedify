@@ -1,0 +1,34 @@
+<mat-dialog-content>
+  <div class="rooms">
+    <mat-form-field class="roomselector">
+      <mat-label>How many rooms?</mat-label>
+      <mat-select [formControl]="this.numberOfRoomsControl">
+        <mat-option *ngFor="let room of rooms" [value]="room">
+          {{room}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="roomslist">
+    <div *ngFor="let a of this.numberOfRooms" class="room">
+      <app-room [roomNumber]="a" #room></app-room>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions [align]="'end'">
+  
+  <button mat-flat-button [mat-dialog-close]="false">
+    {{
+      'bookingengine.6' | translate
+    }}
+  </button>
+  
+  <button mat-flat-button (click)="this.save()">
+    {{
+      'bookingengine.7' | translate
+    }}
+  </button>
+
+</mat-dialog-actions>

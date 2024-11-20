@@ -1,0 +1,46 @@
+
+
+.roomselector {
+  width: 100%;
+}
+
+.discountcode {
+  flex: 1 1 100%;
+}
+
+.next {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 20px;
+  background-color: green;
+  color: #FFF;
+  border-radius: 5px;
+  width: 80px;
+  height: 55px;
+  box-sizing: border-box;
+  line-height: 55px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+
+.room {
+  text-align: left;
+  flex: 0 0 210px;
+  background-color: #FFF;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.summary {
+  display: inline-block;
+  text-align: left;
+  padding-left: 20px;
+  font-size: 16px;
+  font-weight: 200;
+  background-color: #EFEFEF;
+  vertical-align: top;
+  padding: 8px;
+  margin-left: 20px;
+  border-radius: 5px;
+}

@@ -1,0 +1,58 @@
+
+<ng-container *ngIf="this.loading">
+    <div class="bedify-content-outer">
+        <div class="bedify-content-inner bedify-dataloader">
+            <i class="fa-sharp-duotone fa-solid fa-spinner-scale fa-spin"></i>
+
+            {{
+                'bookingengine.45' | translate
+            }}
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="!this.loading">
+    <div *ngIf="this.bedifyProgressService.loadingRoomInfo " class="bedify-content-outer">
+        <div class="bedify-content-inner roomloader">
+            <i class="fa-sharp-duotone fa-solid fa-spinner-scale fa-spin"></i>
+            
+            <span *ngIf="this.bedifyProgressService.loadingBack">
+                {{
+                    'bookingengine.64' | translate
+                }}
+            </span>
+
+            <span *ngIf="this.bedifyProgressService.currentRoom && !this.bedifyProgressService.loadingBack && this.bedifyService.group.rooms.length >= (this.bedifyProgressService.currentRoom.roomIndex + 2)">
+                {{
+                    'bookingengine.23' | translate : {
+                        index : (this.bedifyProgressService.currentRoom.roomIndex + 2)
+                    }
+                }}
+            </span>
+
+            <span *ngIf="this.bedifyProgressService.currentRoom && !this.bedifyProgressService.loadingBack && this.bedifyService.group.rooms.length < (this.bedifyProgressService.currentRoom.roomIndex + 2)">
+                {{
+                    'bookingengine.55' | translate 
+                }}
+            </span>
+        </div>
+    </div>
+
+    <app-progress-bar *ngIf="!this.bedifyProgressService.loadingRoomInfo"></app-progress-bar>
+
+    <div *ngIf="this.bedifyProgressService.currentRoom && !this.bedifyProgressService.loadingRoomInfo">
+        <app-room-config [roomConfig]="this.bedifyProgressService.currentRoom"></app-room-config>
+    </div>
+
+    <div *ngIf="this.bedifyProgressService.step == 'customerinfo'">
+        <app-last-page></app-last-page>
+    </div>
+
+    <div *ngIf="this.bedifyProgressService.step == 'reservationcompleted'">
+        <app-payment-status></app-payment-status>
+    </div>
+
+    <div *ngIf="this.bedifyProgressService.step == 'roomsnotavailable'">
+        <app-rooms-not-available></app-rooms-not-available>
+    </div>
+</ng-container>

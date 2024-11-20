@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+
+	<script src="https://unpkg.com/@webcomponents/custom-elements@latest/custom-elements.min.js"></script>
+    <script src="https://unpkg.com/zone.js"></script> <!-- Ensure you include zone.js -->
+
+	<link rel="stylesheet" href="http://localhost:5000/styles.css">
+    <script type="module" src="http://localhost:5000/polyfills.js" defer></script>
+    <script type="module" src="http://localhost:5000/main.js" defer></script>
+	<script src="https://kit.fontawesome.com/8ade590d6c.js" crossorigin="anonymous"></script>
+</head>
+
+<style>
+	.bedify-header-outer {
+		padding-top: 0px !important;
+		padding-bottom: 0px !important;
+		padding-top: 30px !important;
+	}
+
+	.bedify-header-inner {
+		margin-bottom: 30px !important;
+		border-radius: 5px;
+		background-color: #F6F6F6;
+	}
+
+	.bedify-content-inner {
+		background-color: #F6F6F6;
+		padding: 20px;
+		border-radius: 5px;
+	}
+
+	.bedify-button {
+		background-color: #2569ad;
+		color: #FFF;
+	}
+
+</style>
+
+<body style='margin: 0px; padding: 0px;'>
+
+	<bedify-header 
+		multilanguage=""
+		standaloneredirecturl="https://bedify.net/bookingengine"
+		successurl="https://bedify.net/bookingengine/?paymentstatus=success",
+		failedurl="https://bedify.net/bookingengine/?paymentstatus=failed",
+		configs='[
+			{ "tenantId" : "65d5b3c46655ed07321e1264", "bookingEngineId": "65d5ec5999fd15315e76cb6a", "name" : "Testhotel" }
+		]'>
+	</bedify-header>
+
+</body>
+</html>
+

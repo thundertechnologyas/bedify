@@ -1,0 +1,37 @@
+<div class="top">
+    Summary
+</div>
+
+<div class="dates">
+    Reservation:
+    <div>
+        {{
+            this.group.checkin | date : 'short'
+        }} - {{
+            this.group.checkout | date : 'short'
+        }}
+    </div>
+</div>
+
+<div class="rooms">
+    Rooms:
+    <div *ngFor="let room of this.group.rooms">
+        {{
+            room.roomIndex
+        }}. 
+        {{
+            getSelectedRoom(room).rentalObjectName 
+        }}, Guests: {{ room.adults }} 
+    </div>
+</div>
+
+<div class="total">
+    <div>
+        Total
+    </div>
+    <div>
+        {{
+            getTotal() | currency : this.dataService.currency
+        }}
+    </div>
+</div>

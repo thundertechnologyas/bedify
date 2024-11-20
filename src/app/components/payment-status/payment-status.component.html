@@ -1,0 +1,55 @@
+<div class="bedify-content-outer">
+    <div class="bedify-content-inner paymentstatus">
+        
+        <div *ngIf="this.success" class="success">
+            <i class="fa-regular fa-face-laugh-wink paymentsuccess"></i>
+
+            <div class="reason">
+                <span *ngIf="this.bedifyService.group.hotelCollect || this.bedifyService.group.payOnArrival">
+                    {{
+                        'bookingengine.50' | translate
+                    }}
+                </span>
+                <span *ngIf="!this.bedifyService.group.hotelCollect && !this.bedifyService.group.payOnArrival">
+                    {{
+                        'bookingengine.48' | translate
+                    }}
+                </span>
+            </div>
+
+            <div class="reasondesc">
+                {{
+                    'bookingengine.49' | translate
+                }}
+            </div>
+
+            <div class="bedify-button tryagainbutton" (click)="startNewBooking()">
+                {{
+                    'bookingengine.52' | translate
+                }}
+            </div>
+        </div>
+
+        <div *ngIf="!this.success" class="failure">
+            <i class="fa-regular fa-face-confused failedpayment"></i>
+
+            <div class="reason">
+                {{
+                    'bookingengine.46' | translate
+                }}
+            </div>
+
+            <div class="reasondesc">
+                {{
+                    'bookingengine.47' | translate
+                }}
+            </div>
+
+            <div class="bedify-button tryagainbutton" (click)="tryAgain()">
+                {{
+                    'bookingengine.51' | translate
+                }}
+            </div>
+        </div>
+    </div>
+</div>

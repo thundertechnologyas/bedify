@@ -1,0 +1,151 @@
+
+.topmenu .summary,
+.topmenu .next {
+  flex: 1 1 49%;
+}
+
+.topmenu .summary {
+  background-color: #EFEFEF;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  flex: 0 1 360px !important;
+  text-align: left;
+  font-weight: 300;
+}
+
+.summary.warning {
+  color: red;
+}
+
+.summary.ok {
+  color: green;
+}
+
+.waitingforpayment {
+  text-align: center;
+  padding: 20px;
+}
+
+.waitingforpayment i {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.next {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 20px;
+  background-color: green;
+  color: #FFF;
+  border-radius: 5px;
+  min-width: 200px;
+  height: 55px;
+  box-sizing: border-box;
+  line-height: 55px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+  flex: 0 0 80px !important;
+  cursor: pointer;
+  margin-top: 20px;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.topmenu {
+  text-align: center;
+  padding-top: 20px;
+  position: fixed;
+  left: 0px;
+  top: 80px;
+  right: 0px;
+  background-color: rgba(255, 255, 255, .15);
+  backdrop-filter: blur(5px);
+  display: flex;
+  padding: 20px;
+  z-index: 1;
+  justify-content: center;
+}
+
+.content {
+  
+  gap: 50px;
+  max-width: 1500px;
+  margin: 0 auto;
+  justify-content: center;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.content .summary {
+  flex: 0 0 300px; 
+}
+
+.content .guestinfoarea {
+  flex: 1 1 50%;
+}
+
+.content .summary .summary_inner {
+  background-color: #FFF;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 41px;
+}
+
+.content .summary .summary_inner.companyselected {
+  margin-top: 40px;
+}
+
+.spacer {
+  padding: 20px;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+
+.next.disabled {
+  background-color: #CCC;
+  color: #999;
+}
+
+
+.nextbuttonarea {
+  max-width: 1024px;
+  padding: 20px;
+  text-align: center;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.errors {
+  margin-top: 20px; 
+  background-color: red;
+  color: #FFF;
+  border-radius: 5px;
+}
+
+.termsandconditions {
+  margin-top: 20px;
+}
+
+.checkboxes label {
+  font-size: 18px;
+}
+.terms_subinfo {
+  padding-left: 43px;
+  font-weight: 300;
+  color: blue;
+  cursor: pointer;
+}
+@media (max-width:900px) {
+  .guestinfoarea {
+    
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .summary {
+    flex: 1 1 100% !important;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}

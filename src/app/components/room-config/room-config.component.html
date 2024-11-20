@@ -1,0 +1,100 @@
+
+<ng-container *ngFor="let room of this.roomConfig?.rooms">
+  <div  class="bedify-content-outer"  *ngIf="this.isAvailable(room)">
+    <div class="content bedify-content-inner" >
+      <div *ngIf="roomsLeft(room) <= 5" class="roomsleft">
+        {{
+          'bookingengine.24' | translate : {
+            roomCount : roomsLeft(room)
+          }
+        }}
+      </div>
+      <div class="gallary" *ngIf="this.hasImages(room)">
+        <div [photoGalleryGroup]="{ arrowEl: true, indexIndicatorSep: ' - '}" class="photo">
+          <div class="products-item" *ngFor="let img of room.images; let i = index" [hidden]="i > 0">
+            <div class="products-item-name"></div>
+            <div class="products-item-image" [photoGallery]="this.getImageEndpoint() + img">
+              <img [src]="this.getImageEndpoint() + img" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roominfo" >
+
+        <div class="roomname">
+          {{
+            room.rentalObjectName
+          }}
+        </div>
+
+        <div class="productdescriptions" [innerHTML]="room.rentalDescription">
+
+        </div>
+
+      </div>
+
+
+      <div class="payment_info" >
+        <div class="selectedroominfo correct">
+
+          <mat-radio-group aria-label="Select an option" [formControl]="this.getFormControl(room)">
+
+            <div *ngFor="let variation of room.availableVariations" class="availablevariation">
+              <mat-radio-button class="variation" [value]="variation.variationId">
+                <div class="variationtitle">
+                  {{
+                    variation.variationName
+                  }}
+                </div>
+                 
+                <div class="price">
+                  {{
+                    variation.totalPrice  | currency : this.dataService.currency 
+                  }}
+                </div>
+                
+              </mat-radio-button>
+              <br/>
+            
+            </div>
+          </mat-radio-group>
+        </div>
+
+        <div class="facilities">
+          <div *ngFor="let facility of room.facilities" class="facility">
+            <i class="fa fa-light" [class]="'fa-' + facility.replaceAll('_', '-')"></i>
+            {{
+              'facilities.' + facility | translate
+            }}
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="buttons">
+        <div class="nextbutton bedify-button" (click)="this.select(room)" *ngIf="this.roomConfig">
+          <div *ngIf="this.dataService.group.rooms.length > 1">
+            {{
+              'bookingengine.25' | translate : {
+                roomIndex : (this.roomConfig.roomIndex + 1),
+                roomCount : this.dataService.group.rooms.length,
+              }
+            }}
+            <br/>
+            <span>
+              {{ this.getSelectedPrice(room) | currency : this.dataService.currency }} 
+            </span> 
+          </div>
+
+          <div *ngIf="this.dataService.group.rooms.length < 2 ">
+            {{
+              'bookingengine.56' | translate 
+            }}
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

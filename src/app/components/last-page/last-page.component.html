@@ -1,0 +1,78 @@
+
+<div class="content" *ngIf="!this.waitingForPaymentTransfer" >
+  
+  <div>
+
+    <app-company-information class="companyinfo" #companyInfo *ngIf="!this.companySelected"></app-company-information>
+    <app-guest-infos #guestinfos></app-guest-infos>    
+
+    <div *ngIf="!this.waitingForPaymentTransfer && this.hasTermsAndConditions" class="bedify-content-outer termsandconditions" >
+      <div class="bedify-content-inner" >
+        <div class="checkboxes">
+
+          <mat-checkbox class="checkbox" [formControl]="this.termsAndCondtions">
+            {{
+              'bookingengine.57' | translate
+            }}
+          </mat-checkbox>
+          <div class="terms_subinfo" (click)="this.showTermsAndConditions()">
+            {{
+              'bookingengine.58' | translate
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="!this.waitingForPaymentTransfer" class="menu" >
+      
+      <div class="nextbuttonarea" [class.errors]="!this.valid">
+        <div class="summary" *ngIf="!this.valid">
+          <i class="fa fa-warning"></i> {{ 'bookingengine.27' | translate }}
+        </div>
+
+        <div class="summary" *ngIf="!this.termsAndCondtions.value && this.hasTermsAndConditions">
+          <i class="fa fa-warning"></i> {{ 'bookingengine.59' | translate }}
+        </div>
+
+        <div *ngIf="this.hasPayLater && !this.dataService.group.hotelCollect" class="next" (click)="this.payOnCheckin()" [class.disabled]="!this.valid">
+          <i class="fa fa-check"></i>
+          {{ 'bookingengine.28' | translate }}
+        </div>
+
+        <div class="next" (click)="this.payWithHotelCollect()" [class.disabled]="!this.valid" *ngIf="this.dataService.getGroup().hotelCollect">
+          <span>
+            {{ 'bookingengine.29' | translate }}
+          </span>
+        </div>
+
+        <div class="next" (click)="this.startPaymentDirect()" [class.disabled]="!this.valid" *ngIf="this.hasOnlinePaymentPaymentMethods && !this.dataService.getGroup().hotelCollect">
+
+          <span *ngIf="!this.dataService.getGroup().hotelCollect">
+            {{
+              'bookingengine.30' | translate : {
+                total : this.total | currency : this.dataService.currency
+              }
+            }} 
+          </span>
+          &nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
+        </div>
+        
+      </div>
+
+    </div>
+    
+  </div>
+
+</div>
+
+<div class="content" *ngIf="this.waitingForPaymentTransfer">
+  <div class="waitingforpayment">
+    <i class="fa fa-spin fa-spinner"></i>
+    <br/>
+    {{
+      'bookingengine.31' | translate
+    }}
+  </div>
+</div>
+

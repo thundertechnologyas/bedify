@@ -1,0 +1,33 @@
+::ng-deep .bedify-header-outer {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    padding-top: 30px !important;
+}
+
+::ng-deep .bedify-header-inner {
+    margin-bottom: 30px !important;
+    border-radius: 5px;
+    background-color: #F6F6F6;
+}
+
+::ng-deep .bedify-content-inner {
+    background-color: #F6F6F6;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+::ng-deep .bedify-button {
+    background-color: #2569ad;
+    color: #FFF;
+}
+
+
+
+.logo {
+    text-align: center;
+}
+
+.logo img {
+    max-width: 200px;
+    max-height: 100px;
+}

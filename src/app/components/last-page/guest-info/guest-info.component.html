@@ -1,0 +1,47 @@
+<div class="front" [class.valid]="this.valid">
+  <i class="fa fa-check" ></i>
+  <i class="fa fa-warning" ></i>
+  <form [formGroup]="this.formGroup">
+    <mat-form-field class="firstname">
+      <mat-label>{{ 'bookingengine.34' | translate }}</mat-label>
+      <input matInput placeholder="" value="" formControlName="firstName">
+    </mat-form-field>
+
+    <mat-form-field class="lastname">
+      <mat-label>{{ 'bookingengine.35' | translate }}</mat-label>
+      <input matInput placeholder="" value=""  formControlName="lastName">
+    </mat-form-field>
+
+    <div *ngIf="!this.validCountry" class="countryselecterror">
+      {{ 'bookingengine.36' | translate }}
+    </div>
+
+    <mat-form-field class="prefix" *ngIf="this.guestInfo.guestIndex < 2" style="width: 400px;">
+      <mat-label>{{ 'bookingengine.37' | translate }}</mat-label>
+      <input matInput placeholder="" [matAutocomplete]="auto" [value]="this.getPrefixPrint()" formControlName="prefix">
+
+      <mat-autocomplete #auto="matAutocomplete" [panelWidth]="300">
+        <mat-option *ngFor="let state of filteredPrefixes | async" (click)="countryChanged(state)"  >
+          <img alt="" class="example-option-img" [src]="state.image" height="25" style="padding-top: 0px;">
+          <span style="display: inline-block; vertical-align: top; padding-top: 2px; padding-left: 10px;">
+            {{state.name}} ( {{state.dial_code}} )
+          </span>
+        </mat-option>
+      </mat-autocomplete>
+  
+    </mat-form-field>
+
+    <mat-form-field class="phone" *ngIf="this.guestInfo.guestIndex < 2" >
+      <mat-label>{{ 'bookingengine.38' | translate }}</mat-label>
+      <input matInput placeholder="" value="" formControlName="phoneNumber">
+    </mat-form-field>
+
+
+    <mat-form-field class="email" *ngIf="this.guestInfo.guestIndex < 2" >
+      <mat-label>{{ 'bookingengine.39' | translate }}</mat-label>
+      <input matInput placeholder="" value="" formControlName="email">
+    </mat-form-field>
+
+
+  </form>
+</div>

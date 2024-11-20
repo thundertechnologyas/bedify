@@ -1,0 +1,50 @@
+<div class="companyslider" >
+  <mat-slide-toggle #companySlider [formControl]="this.activatedFormControl">
+    <div class="text">
+      {{
+        'bookingengine.40' | translate
+      }}
+    </div>
+
+  </mat-slide-toggle>
+</div>
+
+<div class="company" *ngIf="companySlider.checked">
+
+  <form class="companydetails" [formGroup]="this.companyForm">
+    <mat-form-field class="companyname">
+      <mat-label>Company Name</mat-label>
+      <input matInput placeholder="" value="" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field class="address">
+      <mat-label>{{ 'bookingengine.41' | translate }}</mat-label>
+      <input matInput placeholder="" value="" formControlName="address">
+    </mat-form-field>
+
+    <mat-form-field class="postbox">
+      <mat-label>{{ 'bookingengine.42' | translate }}</mat-label>
+      <input matInput placeholder="" value="" formControlName="postNumber">
+    </mat-form-field>
+
+    <mat-form-field class="city">
+      <mat-label>{{ 'bookingengine.43' | translate }}</mat-label>
+      <input matInput placeholder="" value="" formControlName="city">
+    </mat-form-field>
+
+    <mat-form-field class="prefix">
+      <mat-label>{{ 'bookingengine.44' | translate }}</mat-label>
+      <input matInput placeholder="" value="" formControlName="prefix">
+    </mat-form-field>
+
+    <mat-form-field class="phone">
+      <mat-label>{{ 'bookingengine.38' | translate }}</mat-label>
+      <input matInput placeholder="" value="" formControlName="phone">
+    </mat-form-field>
+
+    <mat-form-field class="email">
+      <mat-label>{{ 'bookingengine.39' | translate }} </mat-label>
+      <input matInput placeholder="" value="" formControlName="email">
+    </mat-form-field>
+  </form>
+</div>

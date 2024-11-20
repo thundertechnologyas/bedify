@@ -1,0 +1,53 @@
+
+<div class="bedify-content-outer">
+    <div class="bedify-content-inner roomheader">
+        <div class="roomconfig col step" 
+        
+            [class.active]="this.bedifyProgressService.step == 'configrooms'"
+            [class.completed]="this.bedifyProgressService.step == 'customerinfo' || this.bedifyProgressService.step == 'reservationcompleted' "
+        
+        >
+            <i class="fa fa-light fa-bed"></i>
+            <div class="roominformationbox room_config_outer_box">
+                <div class="room_progress_bar">
+                    <div *ngFor="let r of this.bedifyService.group.rooms" class="room_box_box" [class.room_config_completed]="!this.bedifyProgressService.currentRoom || this.bedifyProgressService.currentRoom.roomIndex > r.roomIndex">
+                        {{ r.roomIndex + 1 }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="geustinfo col step"
+            [class.active]="this.bedifyProgressService.step == 'customerinfo'"
+            [class.completed]="this.bedifyProgressService.step == 'reservationcompleted'" 
+            >
+            <i class="fa fa-light fa-people"></i>
+            <div class="roominformationbox">
+                {{
+                    'bookingengine.10' | translate
+                }}
+            </div>
+        </div>
+
+        <div class="paymentinfo col step last" [class.completed]="this.bedifyProgressService.step == 'reservationcompleted'" [class.paymentfailed]="!this.bedifyService.paymentSuccess">
+            <i class="fa fa-light fa-credit-card"></i>
+            <div class="roominformationbox">
+                {{
+                    'bookingengine.26' | translate
+                }}
+            </div>
+        </div>
+
+        <div class="configstatus" *ngIf="this.bedifyProgressService.currentRoom">
+            <div *ngIf="this.bedifyProgressService.step == 'configrooms'" >
+                {{
+                    'bookingengine.9' | translate : {
+                        roomNumber : (this.bedifyProgressService.currentRoom.roomIndex + 1)
+                    }
+                }}
+            </div>    
+        </div>
+    </div>
+
+    
+</div>

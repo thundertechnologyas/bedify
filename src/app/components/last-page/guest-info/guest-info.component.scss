@@ -1,0 +1,109 @@
+:host {
+  padding: 20px;
+  display: block;
+}
+.front {
+  position: relative;
+
+}
+
+.front.valid .fa-warning {
+  display: none;
+}
+
+.front.valid .fa-check {
+  display: block;
+  background-color: green;
+}
+
+.front .fa-warning,
+.front .fa-check {
+  position: absolute;
+  display: none;
+  left: 21px;
+  top: -27px;
+  font-size: 16px;
+  color: #FFF;
+  display: none;
+  padding: 8px;
+  border-radius: 100px;
+
+}
+
+.front .fa-warning {
+  display: block;
+  background-color: red;
+}
+
+.roomtitle {
+      text-align: center;
+    font-size: 18px;
+    background-color: #CCC;
+    display: inline-block;
+    margin: 0 auto;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    margin-left: -50px;
+    width: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    top: -10px;
+}
+
+
+.front form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+
+.front form .example-full-width {
+  width: 100px;
+}
+
+.firstname,
+.lastname {
+  flex: 1 1 49%;
+}
+
+.prefix {
+  flex: 0 0 100px;
+}
+
+.phone {
+  flex: 1 1 39%;
+}
+
+.email {
+  flex: 1 1 49%;
+}
+
+.countryselecterror {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  border: solid 1px red;
+  color: red;
+  font-weight: 500;
+}
+
+@media (max-width:900px) {
+  .firstname,
+  .lastname {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width:650px) {
+  .firstname,
+  .lastname {
+    flex: 1 1 100%;
+  }
+
+  .prefix {
+    flex: 0 0 30%;
+  }
+}

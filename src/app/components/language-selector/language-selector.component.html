@@ -1,0 +1,14 @@
+<div>
+    <div  class="multilanguage" *ngFor="let lang of this.availableLangs" (click)="select(lang)">
+        <div>
+            <img width="50px" [src]="lang.image"/>
+        </div>
+        
+        <div class="countetryn">
+            {{
+                lang.name
+            }}
+        </div>
+        
+    </div>
+</div>

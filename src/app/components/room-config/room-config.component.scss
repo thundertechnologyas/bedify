@@ -1,0 +1,141 @@
+.content {
+  display: flex;
+  margin-top: 50px;
+  padding-bottom: 30px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.photo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gallary .products-item {
+  display: block;
+}
+
+.gallary .products-item img {
+  width: 100px;
+  border-radius: 3px;
+}
+
+.gallary div.products-item:nth-child(1) img {
+  width: 100% !important;
+  max-width: 100%;
+}
+
+.gallary {
+  flex: 0 0 320px;
+}
+
+.roominfo {
+  padding-left: 20px;
+  flex: 1 1 50%;
+}
+
+.roominfo .roomname {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.payment_info {
+  border-top: solid 1px #DDD;
+  flex: 0 0 100%;
+  margin-top: 20px;
+  padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap-reverse;
+}
+
+.bedify-content-outer {
+  margin-top: 30px;
+}
+
+.facilities {
+  flex: 0 0 350px;
+}
+
+.facility {
+  display: inline-block;
+  font-size: 12px;
+  text-align: center;
+  width: 70px;
+  height: 70px;
+  vertical-align: top;
+  background-color: #FFF;
+  border-radius: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  font-weight: 300;
+}
+
+.facility i {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.selectedroominfo {
+  flex: 1 1 50%;
+}
+
+.roomsleft {
+  position: absolute;
+  right: 0px;
+  color: #FFF;
+  background-color: #e23606;
+  padding: 5px;
+  top: 0px;
+  border-radius: 3px;
+  font-size: 15px;
+}
+
+.nextbutton {
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  padding-left: 30px;
+  padding-right: 30px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.nextbutton span {
+  font-size: 15px;
+  margin-top: 5px;
+  font-weight: 400;
+}
+
+.buttons {
+  padding-top: 20px;
+  flex: 0 0 100%;
+  text-align: center;
+}
+
+.availablevariation {
+  margin-top: 10px;
+}
+
+.variationtitle {
+  font-weight: 500;
+}
+
+@media (max-width:900px) {
+  .facilities {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+  
+  .gallary {
+    flex: 0 0 100%;
+  }
+
+  .roominfo {
+    padding-left: 0px;
+  }
+}

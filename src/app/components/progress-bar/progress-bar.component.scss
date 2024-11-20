@@ -1,0 +1,179 @@
+
+.roomheader i {
+    font-size: 20px;
+    padding-right: 10px;
+    vertical-align: top;
+}
+
+.roomheader {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col {
+    flex: 1 1 20%;
+    text-align: center;
+}
+
+.configstatus {
+    flex: 0 0 100%;
+    text-align: center;
+    margin-top: 5px;
+    padding-top: 5px;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+/* Progress bar container */
+.progress-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%; /* adjust as needed */
+    margin: auto;
+}
+
+/* Step circles */
+.step {
+    position: relative;
+    background-color: #EFEFEF;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #888;
+    border: solid 1px rgb(0,0,0,0.1);
+}
+
+.step:first-child {
+    border-radius: 5px 0px 0px 5px;
+}
+
+.step.last {
+    border-radius: 0px 5px 5px 0px;
+    border-right: solid 0px #DDD;
+}
+
+
+/* Active steps */
+.step.completed {
+    background-color: #4CAF50; /* Green for active steps */
+    color: white;
+}
+
+.step.active {
+    background-color: #0075be; /* Green for active steps */
+    color: white;
+}
+
+
+/* Arrows between steps */
+.step::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -9px; /* Adjust positioning for arrowhead alignment */
+    transform: translateY(-50%) rotate(135deg);
+    width: 16px;
+    height: 16px;
+    background-color: #DDD; /* Same color as line */
+    clip-path: polygon(0 0, 100% 0, 0 100%); /* Creates a triangle */
+    z-index: 1;
+    border: solid 1px rgb(0,0,0,0.1);
+}
+
+.step.completed::after {
+    background-color: #4CAF50; /* Same color as line */
+}
+
+.step.active::after {
+    background-color: #0075be !important; 
+}
+
+.step:last-child::after {
+    content: none; /* Remove arrow for the last step */
+    display:  none;
+}
+
+.step.last::after{
+    display: none;
+}
+
+
+.configstatus {
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.room_config_outer_box {
+    display: flex;
+    padding-left: 20px;
+    margin-right: 20px;
+}
+
+.room_progress_bar {
+    display: flex;
+    flex: 1 1 100%;
+    margin-left: 0px;
+}
+
+.room_box_box:first-child {
+    border-radius: 5px 0px 0px 5px;
+}
+
+.room_box_box:last-child {
+    border-radius: 0px 5px 5px 0px;
+}
+
+.room_box_box:only-child {
+    border-radius: 5px; /* Apply full rounded corners */
+}
+
+.room_box_box {
+    flex: 1 1 10%;
+    
+    position: relative;
+    background-color: #FFF;
+    color: #000;
+}
+
+.room_box_box::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -5px; /* Adjust positioning for arrowhead alignment */
+    transform: translateY(-50%) rotate(135deg);
+    width: 10px;
+    height: 10px;
+    background-color: #DDD; /* Same color as line */
+    clip-path: polygon(0 0, 100% 0, 0 100%); /* Creates a triangle */
+    z-index: 1;
+}
+
+.room_box_box:last-child:after {
+    display: none;
+}
+
+.roominformationbox {
+    margin-top: 5px;
+}
+
+.room_config_completed {
+    background-color: green;
+    color: #FFF;
+}
+
+.room_config_completed::after {
+    background-color: #4CAF50;
+}
+
+.paymentinfo.completed.paymentfailed {
+    background-color: red;
+}
+
+@media (max-width:900px) {
+    
+    .roomtitltext {
+        display: none;
+    }
+  }

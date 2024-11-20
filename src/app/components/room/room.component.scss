@@ -1,0 +1,56 @@
+.config {
+  background-color: #EFEFEF;
+  border-radius: 5px;
+  width: 210px;
+  display: inline-block;
+}
+
+.config .adjust,
+.config .guests {
+  display: inline-block;
+}
+
+.roomnumber {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.config .guests {
+  text-align: center;
+  width: 70px;
+  height: 70px;
+  vertical-align: top;
+  border-right: solid 3px #FFF;
+  box-sizing: border-box;
+  padding-top: 15px;
+}
+
+.minus,
+.plus {
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  padding-top: 5px;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.plus {
+  border-right: solid 3px #FFF;
+}
+
+.desc {
+  font-size: 10px;
+}
+
+.count {
+  font-size: 25px;
+}
+
+
+.plus i,
+.minus i {
+  line-height: 60px !important;
+}

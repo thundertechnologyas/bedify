@@ -1,0 +1,69 @@
+<div class="rooms bedify-content-outer">
+  <div *ngFor="let room of this.dataService.group.rooms" class="guestinfoarea bedify-content-inner">
+    <div class="roomtitle">
+      <div class="roomname">
+        {{ 'bookingengine.19' | translate }} {{ room.roomIndex + 1 }}
+    
+        - 
+        
+        {{
+          this.getSelectedRoom(room)?.rentalObjectName
+        }}
+      </div>
+       
+      <div class="price">
+        <i class="fa fa-tag"></i>
+        {{
+          this.getVariation(room).totalPrice | currency : this.dataService.currency
+        }} - 
+          {{
+            getVariationName(room)
+          }}
+          <div *ngIf="this.getSelectedRoom(room).selectedOptionAddons.length > 0">
+            <div *ngFor="let additionalAddon of this.getSelectedRoom(room).selectedOptionAddons" class="bedify_extras">
+              + 
+              {{
+                additionalAddon.product.defaultName
+              }}
+           
+              {{
+                additionalAddon.extraCost | currency : this.dataService.currency
+              }}
+            </div>
+          </div>
+      </div>
+
+      <div class="dates">
+        <i class="fa fa-calendar"></i>
+        {{
+          this.dataService.group.checkin  | date : 'short'
+        }} - 
+        {{
+          this.dataService.group.checkout | date : 'short' 
+        }}
+      </div>
+    </div>
+
+    <div *ngFor="let g of room.guests; let i = index" class="guest" >
+      <div class="guesttop">
+        {{
+          'bookingengine.32' | translate : {
+            guestIndex : (i + 1)
+          }
+        }}
+      </div>
+
+      <app-guest-info #guestinfo [guest]="g"></app-guest-info>
+    </div>
+  </div>
+
+  <div  class="guestinfoarea bedify-content-inner">
+    <div class="guest" style="padding: 20px;" >
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <mat-label>{{ 'bookingengine.33' | translate }} </mat-label>
+        <textarea matInput placeholder="" [formControl]="this.commentControl"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+
+</div>

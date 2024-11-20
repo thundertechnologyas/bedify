@@ -1,0 +1,25 @@
+<div class="roomnumber">
+  {{ 'bookingengine.19' | translate }}: {{ roomNumber }}
+</div>
+
+
+<div class="config adults">
+  <div class="guests">
+    <div class="count">
+      {{
+        this.adults
+      }}
+    </div>
+    <div class="desc">Guests</div>
+  </div>
+  <div class="adjust">
+    <div class="plus" (click)="addAdults()">
+      <i class="fa fa-plus"></i>
+    </div>
+    <div class="minus" (click)="subAdults()">
+      <i class="fa fa-minus"></i>
+    </div>
+  </div>
+</div>
+
+

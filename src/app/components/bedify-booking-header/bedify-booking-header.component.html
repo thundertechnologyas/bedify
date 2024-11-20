@@ -1,0 +1,83 @@
+<div class="bedify-header-outer">
+    <div class="bedify-header-inner">
+        <div>
+            
+            <form [formGroup]="this.group">
+                <mat-form-field class="date">
+                    <mat-label>{{ 'bookingengine.1' | translate }} </mat-label>
+                    <input matInput (click)="picker_checkin.open()" [matDatepicker]="picker_checkin"
+                        [matDatepickerFilter]="startFilter" formControlName="checkin">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker_checkin"></mat-datepicker-toggle>
+                    <mat-datepicker #picker_checkin></mat-datepicker>
+                </mat-form-field>
+
+                &nbsp;&nbsp;
+
+                <mat-form-field class="date">
+                    <mat-label>{{ 'bookingengine.2' | translate }}</mat-label>
+                    <input (click)="picker_checkout.open()" matInput [matDatepicker]="picker_checkout"
+                        [matDatepickerFilter]="endFilter" [disabled]="!this.group.value.checkin" formControlName="checkout">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker_checkout"
+                        [disabled]="!this.group.value.checkin"></mat-datepicker-toggle>
+                    <mat-datepicker #picker_checkout></mat-datepicker>
+                </mat-form-field>
+
+
+                <mat-form-field *ngIf="this.tenants.length > 1" class="tenantselections">
+                    <mat-label>
+                        {{
+                            'bookingengine.17' | translate
+                        }}
+                    </mat-label>
+                    <mat-select formControlName="bookingEngineId">
+                    @for (tenant of this.tenants; track tenant.bookingEngineId) {
+                        <mat-option [value]="tenant.bookingEngineId">{{tenant.name}}</mat-option>
+                    }
+                    </mat-select>
+                </mat-form-field>
+        
+
+            </form>
+        </div>
+
+        <div class="guestsselection" (click)="showRoomConfig()">
+            <div>
+                {{
+                    this.roomsAndGuests
+                }}
+            </div>
+            <div>
+                <i class="fa fa-caret-down"></i>
+            </div>
+        </div>
+
+        <div *ngIf="this.multiLanguage" class="multilanguage_outer" (click)="this.selectLanguage()">
+            <div  class="multilanguage">
+                <img width="50px" [src]="this.selectedLang.image"/>
+            </div>
+        </div>
+
+        <div>
+            <div (click)="this.showDiscount()" class="discountbutton bedify-button">
+                <i class="fa fa-badge-percent"></i> {{ 'bookingengine.5' | translate }}
+            </div>
+        </div>
+
+        <div *ngIf="this.standaloneredirecturl">
+            <div (click)="search()" class="discountbutton bedify-button">
+                <i class="fa fa-search"></i> {{ 'bookingengine.60' | translate }}
+            </div>
+        </div>
+        
+        <br/>
+        <div *ngIf="this.group.value.discountCode" class="discountcodeactivated">
+            <i class="fa fa-check"></i> {{
+                'bookingengine.21' | translate : {
+                    code: this.group.value.discountCode
+                }
+            }}
+        </div>
+
+    </div>
+
+</div>
