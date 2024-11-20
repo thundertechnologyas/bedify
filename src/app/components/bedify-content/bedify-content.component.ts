@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { BedifyBookingService } from '../../../services/bedify-booking.service';
 import { BedifyProgressService } from '../../../services/bedify-progress.service';
 
@@ -12,10 +12,21 @@ export class BedifyContentComponent {
   private lastSetLoadingTime: number = 0;
 
 
+  @ViewChild('topOfComponent') 
+  private topOfComponent! : ElementRef;
+
   constructor(
     public bedifyService: BedifyBookingService,
     public bedifyProgressService: BedifyProgressService
   ) {
+
+
+    bedifyProgressService.onStep().subscribe(res => {
+      if (this.topOfComponent) {
+        this.topOfComponent.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+
     bedifyService.onFilterChanged().subscribe(() => {
       this.loading = true;
       this.lastSetLoadingTime = Date.now();
