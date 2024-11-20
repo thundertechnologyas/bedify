@@ -81,6 +81,9 @@ Modify the style as you see fit and also make sure your pagename is set properly
 <bedify-content></bedify-content>
 ```
 
+## Completely standalone
+Have a look at src/standalone-example.html and src/standalone-header-example.html on how to integrate it directly into other pages.
+
 ## Further help
 
 We are eager to help you, please contact us at https://bedify.net
