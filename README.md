@@ -23,18 +23,22 @@ First you need to have a code snippet added to your webpage, then  you can add c
 Name it "Bedify Embeddeable Booking Engine" and add the following content
 
 ```
+add_action('wp_head', 'embed_bookingengine_assets');
+
+
 function embed_bookingengine_assets() {
     // Check if we are on the "bookingengine" page
     if (is_page('bookingengine')) { // Replace 'bookingengine' with the slug or ID of your page
+		$rand = rand(1,100000000);
         ?>
         <!-- Include CSS -->
-        <link rel="stylesheet" href="https://embedded.bedify.net/styles.css">
+        <link rel="stylesheet" href="https://embedded.bedify.net/styles.css?ver=<?php echo $rand; ?>">
 
         <!-- Include Scripts -->
         <script src="https://unpkg.com/@webcomponents/custom-elements@latest/custom-elements.min.js"></script>
         <script src="https://unpkg.com/zone.js"></script>
-        <script type="module" src="https://embedded.bedify.net/polyfills.js" defer></script>
-        <script type="module" src="https://embedded.bedify.net/main.js" defer></script>
+        <script type="module" src="https://embedded.bedify.net/polyfills.js?ver=<?php echo $rand; ?>" defer></script>
+        <script type="module" src="https://embedded.bedify.net/main.js?ver=<?php echo $rand; ?>" defer></script>
         <script src="https://kit.fontawesome.com/8ade590d6c.js" crossorigin="anonymous"></script>
 
         <!-- Add Inline Styles -->
@@ -43,23 +47,31 @@ function embed_bookingengine_assets() {
                 padding-top: 30px !important;
                 padding-bottom: 0px !important;
             }
-            
+
             .bedify-header-inner {
                 margin-bottom: 30px !important;
                 border-radius: 5px;
                 background-color: #F6F6F6;
+				max-width: 1100px !important;
             }
 
             .bedify-content-inner {
                 background-color: #F6F6F6;
                 padding: 20px;
                 border-radius: 5px;
+				max-width: 1100px !important;
             }
 
             .bedify-button {
                 background-color: #2569ad;
                 color: #FFF;
             }
+			
+            <!-- This is added if you have floating header and need to correct the progress spinner accordingly -->
+			.scrolltop { 
+				height: 1px;
+				padding-bottom: 100px;
+			}
         </style>
         <?php
     }

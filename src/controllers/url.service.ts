@@ -16,7 +16,7 @@ export class UrlService {
 
   getBackendUrl(): string {
     if (isDevMode()) {
-      return "http://localhost:20005";
+      return "http://192.168.10.147:20005";
     }
 
     let id = sessionStorage.getItem("bookingEngineId");

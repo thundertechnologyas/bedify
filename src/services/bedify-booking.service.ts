@@ -296,6 +296,6 @@ export class BedifyBookingService {
       return "http://localhost:20003/commerce/productcontroller/image?uuid="+imageUuid+"&tenantId=" + config.tenantId;
     }
 
-    return config.workerNodes.filter(o => o.appModuleId == "6162ab1ca79bee36c683968b")[0] + "/commerce/productcontroller/image?uuid="+imageUuid+"&tenantId=" + config.tenantId; 
+    return "https://"+config.workerNodes.filter(o => o.appModuleId == "6162ab1ca79bee36c683968b")[0].endPoint + "/commerce/productcontroller/image?uuid="+imageUuid+"&tenantId=" + config.tenantId; 
   }
 }

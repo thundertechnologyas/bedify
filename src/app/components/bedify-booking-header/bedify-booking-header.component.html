@@ -1,8 +1,8 @@
 <div class="bedify-header-outer">
-    <div class="bedify-header-inner">
-        <div>
-            
-            <form [formGroup]="this.group">
+    <div class="bedify-header-inner" >
+        <div [formGroup]="this.group" class="bedify_header_selections">
+
+            <div>
                 <mat-form-field class="date">
                     <mat-label>{{ 'bookingengine.1' | translate }} </mat-label>
                     <input matInput (click)="picker_checkin.open()" [matDatepicker]="picker_checkin"
@@ -10,9 +10,9 @@
                     <mat-datepicker-toggle matIconSuffix [for]="picker_checkin"></mat-datepicker-toggle>
                     <mat-datepicker #picker_checkin></mat-datepicker>
                 </mat-form-field>
+            </div>
 
-                &nbsp;&nbsp;
-
+            <div>
                 <mat-form-field class="date">
                     <mat-label>{{ 'bookingengine.2' | translate }}</mat-label>
                     <input (click)="picker_checkout.open()" matInput [matDatepicker]="picker_checkout"
@@ -21,9 +21,10 @@
                         [disabled]="!this.group.value.checkin"></mat-datepicker-toggle>
                     <mat-datepicker #picker_checkout></mat-datepicker>
                 </mat-form-field>
+            </div>
 
-
-                <mat-form-field *ngIf="this.tenants.length > 1" class="tenantselections">
+            <div *ngIf="this.tenants.length > 1">
+                <mat-form-field class="tenantselections">
                     <mat-label>
                         {{
                             'bookingengine.17' | translate
@@ -35,41 +36,40 @@
                     }
                     </mat-select>
                 </mat-form-field>
+            </div>
+
+            <div class="guestsselection" (click)="showRoomConfig()">
+                <div>
+                    {{
+                        this.roomsAndGuests
+                    }}
+                </div>
+                <div>
+                    <i class="fa fa-caret-down"></i>
+                </div>
+            </div>
+
+            <div *ngIf="this.multiLanguage" class="multilanguage_outer" (click)="this.selectLanguage()">
+                <div  class="multilanguage">
+                    <img width="50px" [src]="this.selectedLang.image"/>
+                </div>
+            </div>
+
+            <div>
+                <div (click)="this.showDiscount()" class="discountbutton bedify-button">
+                    <i class="fa fa-badge-percent"></i> {{ 'bookingengine.5' | translate }}
+                </div>
+            </div>
+
+            <div *ngIf="this.standaloneredirecturl">
+                <div (click)="search()" class="discountbutton bedify-button">
+                    <i class="fa fa-search"></i> {{ 'bookingengine.60' | translate }}
+                </div>
+            </div>
         
 
-            </form>
         </div>
 
-        <div class="guestsselection" (click)="showRoomConfig()">
-            <div>
-                {{
-                    this.roomsAndGuests
-                }}
-            </div>
-            <div>
-                <i class="fa fa-caret-down"></i>
-            </div>
-        </div>
-
-        <div *ngIf="this.multiLanguage" class="multilanguage_outer" (click)="this.selectLanguage()">
-            <div  class="multilanguage">
-                <img width="50px" [src]="this.selectedLang.image"/>
-            </div>
-        </div>
-
-        <div>
-            <div (click)="this.showDiscount()" class="discountbutton bedify-button">
-                <i class="fa fa-badge-percent"></i> {{ 'bookingengine.5' | translate }}
-            </div>
-        </div>
-
-        <div *ngIf="this.standaloneredirecturl">
-            <div (click)="search()" class="discountbutton bedify-button">
-                <i class="fa fa-search"></i> {{ 'bookingengine.60' | translate }}
-            </div>
-        </div>
-        
-        <br/>
         <div *ngIf="this.group.value.discountCode" class="discountcodeactivated">
             <i class="fa fa-check"></i> {{
                 'bookingengine.21' | translate : {
@@ -77,7 +77,6 @@
                 }
             }}
         </div>
-
     </div>
 
 </div>

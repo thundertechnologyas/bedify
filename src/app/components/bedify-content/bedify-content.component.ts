@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { BedifyBookingService } from '../../../services/bedify-booking.service';
 import { BedifyProgressService } from '../../../services/bedify-progress.service';
 
@@ -7,7 +7,7 @@ import { BedifyProgressService } from '../../../services/bedify-progress.service
   templateUrl: './bedify-content.component.html',
   styleUrl: './bedify-content.component.scss'
 })
-export class BedifyContentComponent {
+export class BedifyContentComponent implements AfterViewChecked {
   public loading = false;
   private lastSetLoadingTime: number = 0;
 
@@ -17,15 +17,9 @@ export class BedifyContentComponent {
 
   constructor(
     public bedifyService: BedifyBookingService,
-    public bedifyProgressService: BedifyProgressService
+    public bedifyProgressService: BedifyProgressService,
+    private cdr: ChangeDetectorRef
   ) {
-
-
-    bedifyProgressService.onStep().subscribe(res => {
-      if (this.topOfComponent) {
-        this.topOfComponent.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-    });
 
     bedifyService.onFilterChanged().subscribe(() => {
       this.loading = true;
@@ -42,5 +36,16 @@ export class BedifyContentComponent {
         }, 1000 - (currentTime - this.lastSetLoadingTime));
       }
     });
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.bedifyProgressService.loadingRoomInfo) {
+      let top = this.topOfComponent.nativeElement.getBoundingClientRect().top;
+
+      window.scrollBy(0,top);
+
+ 
+    }
+    
   }
 }
