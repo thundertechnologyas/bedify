@@ -2,7 +2,7 @@ import { Injectable, NgModule } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { GalaxyService } from './galaxy.service';
 import { TenantBookingEngineConfig } from '../services/bedify-classes';
-
+import { environment } from '../environments/environment'
 
 @Injectable({
     providedIn: 'root'
@@ -12,11 +12,13 @@ export class UrlService {
   public bookingEngineConfigs : TenantBookingEngineConfig[] | undefined;
 
   constructor(private galaxyService: GalaxyService) {
+    
   }
 
   getBackendUrl(): string {
-    if (isDevMode()) {
-      return "http://192.168.10.147:20005";
+    // To start with local development, use ng serve --configuration=local 
+    if (isDevMode() && environment && environment.apiUrl) {
+      return environment.apiUrl;
     }
 
     let id = sessionStorage.getItem("bookingEngineId");
