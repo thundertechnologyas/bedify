@@ -26,40 +26,74 @@
     
     <div *ngIf="!this.waitingForPaymentTransfer" class="menu" >
       
+
       <div class="nextbuttonarea" [class.errors]="!this.valid">
-        <div class="summary" *ngIf="!this.valid">
-          <i class="fa fa-warning"></i> {{ 'bookingengine.27' | translate }}
-        </div>
+        <mat-radio-group aria-label="Select an option" [formControl]="this.paymentOptionType">
 
-        <div class="summary" *ngIf="!this.termsAndCondtions.value && this.hasTermsAndConditions">
-          <i class="fa fa-warning"></i> {{ 'bookingengine.59' | translate }}
-        </div>
+          <div class="summary" *ngIf="!this.valid">
+            <i class="fa fa-warning"></i> {{ 'bookingengine.27' | translate }}
+          </div>
 
-        <div *ngIf="this.hasPayLater && !this.dataService.group.hotelCollect" class="next" (click)="this.payOnCheckin()" [class.disabled]="!this.valid">
-          <i class="fa fa-check"></i>
-          {{ 'bookingengine.28' | translate }}
-        </div>
+          <div class="summary" *ngIf="!this.termsAndCondtions.value && this.hasTermsAndConditions">
+            <i class="fa fa-warning"></i> {{ 'bookingengine.59' | translate }}
+          </div>
 
-        <div class="next" (click)="this.payWithHotelCollect()" [class.disabled]="!this.valid" *ngIf="this.dataService.getGroup().hotelCollect">
-          <span>
-            {{ 'bookingengine.29' | translate }}
-          </span>
-        </div>
+          <div *ngIf="this.hasPayLater && !this.dataService.group.hotelCollect" class="next" [class.disabled]="!this.valid">
+            <mat-radio-button value="payOnCheckin">
+              {{ 'bookingengine.28' | translate }}
+            </mat-radio-button>
 
-        <div class="next" (click)="this.startPaymentDirect()" [class.disabled]="!this.valid" *ngIf="this.hasOnlinePaymentPaymentMethods && !this.dataService.getGroup().hotelCollect">
+            <div class="paymentdetails" *ngIf="this.paymentOptionType.value == 'payOnCheckin'">
+              {{
+                'bookingengine.67' | translate
+              }}
+            </div>
+          </div>
 
-          <span *ngIf="!this.dataService.getGroup().hotelCollect">
+          <div class="next" [class.disabled]="!this.valid" *ngIf="this.dataService.getGroup().hotelCollect">
+            <mat-radio-button value="payWithHotelCollect">
+              <span>
+                {{ 'bookingengine.29' | translate }}
+              </span>
+            </mat-radio-button>
+          </div>
+
+          <div class="next" [class.disabled]="!this.valid" *ngIf="this.hasOnlinePaymentPaymentMethods && !this.dataService.getGroup().hotelCollect">
+
+            <mat-radio-button value="startPaymentDirectFalse">
+                {{
+                  'bookingengine.30' | translate : {
+                    total : this.total | currency : this.dataService.currency
+                  }
+                }} 
+            </mat-radio-button>
+          </div>
+          
+          <div class="next" [class.disabled]="!this.valid" *ngIf="
+            this.hasOnlinePaymentPaymentMethods 
+            && !this.dataService.getGroup().hotelCollect 
+            && this.dataService.getBookingEngineConfig()?.bookingEngine?.payPartial
+            && this.dataService.getBookingEngineConfig()?.bookingEngine?.partialPaymentPercentage
+            ">
+            <mat-radio-button value="startPaymentDirectTrue">
+                {{
+                  'bookingengine.65' | translate : {
+                    total : this.totalPartial | currency : this.dataService.currency,
+                    percent : this.dataService.getBookingEngineConfig()?.bookingEngine?.partialPaymentPercentage
+                  }
+                }} 
+
+            </mat-radio-button>
+          </div>
+
+          <div (click)="initPayment()" class="nextbutton" *ngIf="this.valid">
             {{
-              'bookingengine.30' | translate : {
-                total : this.total | currency : this.dataService.currency
-              }
-            }} 
-          </span>
-          &nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
-        </div>
-        
+              'bookingengine.66' | translate
+            }}
+            <i class="fa fa-arrow-right"></i>
+          </div>
+        </mat-radio-group>
       </div>
-
     </div>
     
   </div>

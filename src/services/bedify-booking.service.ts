@@ -236,7 +236,9 @@ export class BedifyBookingService {
   getBookingEngineConfig() : TenantBookingEngineConfig | undefined {
     let bookingEngineId = sessionStorage.getItem("bookingEngineId");
 
-    return this.bookingEngineConfigs?.filter(o => o.bookingEngineId == bookingEngineId)[0];
+    let ret = this.bookingEngineConfigs?.filter(o => o.bookingEngineId == bookingEngineId)[0];
+
+    return ret;
   }
 
   selectRoom(room: Room, variation: RoomVariation, roomConfig: RoomConfig) {

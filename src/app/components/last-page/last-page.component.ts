@@ -10,6 +10,7 @@ import { BedifyProgressService } from '../../../services/bedify-progress.service
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TermsAndConditionDialogComponent } from '../terms-and-condition-dialog/terms-and-condition-dialog.component';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-last-page',
@@ -28,6 +29,8 @@ export class LastPageComponent implements OnDestroy, AfterViewInit{
   
   public termsAndCondtions = new FormControl(false);
 
+  public paymentOptionType = new FormControl("");
+
   get companySelected() {
     return this.dataService.getGroup().companySelected;
   }
@@ -37,14 +40,28 @@ export class LastPageComponent implements OnDestroy, AfterViewInit{
     private dialog: MatDialog,
     private router: Router,
      private bookingController: ExternalBookingController) {
+      this.progressService.onNext().subscribe(res => {
+        this.selectPaymentMethod();
+      });
   }
 
   ngAfterViewInit(): void {
     
   }
+  
+  selectPaymentMethod() {
+    console.log(this.hasOnlinePaymentPaymentMethods);
+    if (this.hasOnlinePaymentPaymentMethods) {
+      this.paymentOptionType.patchValue("startPaymentDirectFalse");
+    } else if (this.hasPayLater) {
+      this.paymentOptionType.patchValue("payOnCheckin");
+    } else if (this.dataService.getGroup().hotelCollect) {
+      this.paymentOptionType.patchValue("payWithHotelCollect");
+    }
+  
+  }
 
   ngOnDestroy(): void {
-    
   }
 
   payOnCheckin() {
@@ -58,9 +75,9 @@ export class LastPageComponent implements OnDestroy, AfterViewInit{
     });
   }
 
-  startPaymentDirect() {
+  startPaymentDirect(partial : boolean = false) {
     this.dataService.getGroup().payOnArrival = false;
-    this.startPayment();
+    this.startPayment(partial);
   }
 
   get hasOnlinePaymentPaymentMethods() {
@@ -82,13 +99,14 @@ export class LastPageComponent implements OnDestroy, AfterViewInit{
 
     this.bookingController.create(this.dataService.getGroup()).subscribe(res => {
       this.dataService.bookingSessionStarted(res.sessionId);
+      this.selectPaymentMethod();
       if (res) {
         this.progressService.reservationCompleted();
       }
     });
   }
   
-  startPayment() {
+  startPayment(partial : boolean = false) {
     if (!this.valid) {
       return;
     }
@@ -112,6 +130,7 @@ export class LastPageComponent implements OnDestroy, AfterViewInit{
       paymentRequest.paymentTypeId = paymentTypeId;
       paymentRequest.paymentSuccessUrl = this.dataService.successUrl;
       paymentRequest.paymentFailureUrl = this.dataService.failedUrl;
+      paymentRequest.partial = partial;
 
       this.bookingController.startPayment(paymentRequest).subscribe(res => {
         this.waitingForPaymentTransfer = false;
@@ -182,6 +201,10 @@ export class LastPageComponent implements OnDestroy, AfterViewInit{
     return total;
   }
 
+  get totalPartial() {
+    return this.total * (30 / 100);
+  }
+
   showTermsAndConditions() {
     let ref = this.dialog.open(TermsAndConditionDialogComponent);
   }
@@ -194,5 +217,33 @@ export class LastPageComponent implements OnDestroy, AfterViewInit{
     }
 
     return bookingEngine.bookingEngine.termsAndConditions.trim() != "";
+  }
+
+  initPayment() {
+    switch(this.paymentOptionType.value) {
+      case "startPaymentDirectTrue": {
+        this.startPaymentDirect(true);
+        break;
+      }
+
+      case "startPaymentDirectFalse": {
+        this.startPaymentDirect(false);
+        break;
+      }
+
+      case "startPaymentDirectFalse": {
+        this.startPaymentDirect(false);
+        break;
+      }
+
+      case "payOnCheckin": {
+        this.payOnCheckin();
+        break;
+      }
+
+      
+    }
+
+    console.log(this.paymentOptionType);
   }
 }

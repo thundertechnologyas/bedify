@@ -75,9 +75,6 @@ export class BedifyBookingHeader implements AfterViewInit {
       translationService.changeLang(this._selectedLang);
       
       bedifyInitilizer.onReady().subscribe(res => {
-        if (res) {
-          console.log("inited");
-        }
       });
 
       this.group.valueChanges.subscribe(res => {

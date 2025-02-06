@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BedifyBookingService } from './bedify-booking.service';
 import { RoomConfig } from './bedify-classes';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,8 @@ export class BedifyProgressService {
   
   public step: string = "configrooms";
 
+  public nextSubject = new BehaviorSubject<string>("");
+  
   next() {
 
     if (this.currentRoom && (this.currentRoom.roomIndex+1) == this.bedifyService.group.rooms.length) {
@@ -39,7 +41,7 @@ export class BedifyProgressService {
     this.loadingRoomInfo = true;
     
     setTimeout(() => {
-      this.loadingRoomInfo = false;
+      this.loadingRoomInfo = false; 
       this.loadNextRoom();
       this.setStep();
     }, 1000);
@@ -57,7 +59,12 @@ export class BedifyProgressService {
     }
     
     history.pushState(null, "", url.toString());
+    this.nextSubject.next(this.step);
   }
+
+  public onNext() {
+    return this.nextSubject.asObservable();
+  }  
 
   public goToCustomerInfo() {
     this.currentRoom = null;

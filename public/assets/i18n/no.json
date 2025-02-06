@@ -55,7 +55,15 @@
     "bookingengine.58" : "Du bekrefter med dette våre betingelser ( les dem her )",
     "bookingengine.59" : "Vennligst sjekk av Booking-betingelser over",
     "bookingengine.60" : "Søk",
-    
+    "bookingengine.61" : "Tilvalg",
+    "bookingengine.62" : "Ønsker du noe mer for for dette rommet?",
+    "bookingengine.63" : "Pris",
+    "bookingengine.64" : "Laster tilvalg, vennligst vent",
+    "bookingengine.65" : "Betalt {{percent}}% nå, {{ total }}",
+    "bookingengine.66" : "Fortsett",
+    "bookingengine.67" : "Du vil motta en epost med betalingsdetaljer",
+    "bookingengine.68" : "Betal hele beløpet nå og få fast-track gratis",
+
     "facilities.wifi" : "Wifi",
     "facilities.coffee_beans" : "Kaffe",
     "facilities.wheelchair_move" : "Handicap tilgjenglig",

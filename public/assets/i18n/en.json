@@ -59,8 +59,11 @@
     "bookingengine.62" : "Do you want to add something more to this room ?",
     "bookingengine.63" : "Price",
     "bookingengine.64" : "Loading options, please wait",
+    "bookingengine.65" : "Pay {{percent}}% now, {{ total }}",
+    "bookingengine.66" : "Continue",
+    "bookingengine.67" : "You will receive an email with payment details",
+    "bookingengine.68" : "Pay the full amount now and receive our fast-track for free.",
 
-    
     "facilities.wifi" : "Wifi",
     "facilities.coffee_beans" : "Coffee",
     "facilities.wheelchair_move" : "Handicap available",

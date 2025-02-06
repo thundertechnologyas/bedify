@@ -18,6 +18,8 @@ export class BookingEngine {
     public defaultPrefix = "";
     public currency = "";
     public termsAndConditions = "";
+    public payPartial = false;
+    public partialPaymentPercentage = 0;
 }
   
 export class GroupBooking {
@@ -46,6 +48,7 @@ export class BookingStartPaymentRequest {
     public paymentTypeId = "";
     public paymentSuccessUrl = "";
     public paymentFailureUrl = "";
+    public partial = false;
 }
 
 export class GroupLoadedEvent {
