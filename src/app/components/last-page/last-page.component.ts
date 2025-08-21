@@ -231,16 +231,10 @@ export class LastPageComponent implements OnDestroy, AfterViewInit{
         break;
       }
 
-      case "startPaymentDirectFalse": {
-        this.startPaymentDirect(false);
-        break;
-      }
-
       case "payOnCheckin": {
         this.payOnCheckin();
         break;
       }
-
       
     }
 
