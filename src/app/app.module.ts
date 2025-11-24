@@ -46,6 +46,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TermsAndConditionDialogComponent } from './components/terms-and-condition-dialog/terms-and-condition-dialog.component';
 import { AdditionalAddonDialogComponent } from './components/additional-addon-dialog/additional-addon-dialog.component';
 import { AddtionalProductViewComponent } from './components/additional-addon-dialog/addtional-product-view/addtional-product-view.component';
+import { GuestPortalComponent } from './components/guest-portal/guest-portal.component';
+import { GuestPortalFrontComponent } from './components/guest-portal-front/guest-portal-front.component';
+import { PulseOpenStatusComponent } from './components/pulse-open-status/pulse-open-status.component';
 
 registerLocaleData(localNo);
 registerLocaleData(localFi);
@@ -82,7 +85,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     LanguageSelectorComponent,
     TermsAndConditionDialogComponent,
     AdditionalAddonDialogComponent,
-    AddtionalProductViewComponent
+    AddtionalProductViewComponent,
+    GuestPortalComponent,
+    GuestPortalFrontComponent,
+    PulseOpenStatusComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ export class HeaderFilter {
     public discountCode : string | null | undefined  = null;
     public bookingEngineId : string | null | undefined  = null;
     public rooms: RoomConfig[] = [];
+    public multiProperty = false;
 }
 
 export class BookingEngine {
@@ -118,6 +119,8 @@ export class Company {
     public prefix: string = "";
     public phone: string = "";
     public email: string = "";
+    public countrycode : string = "";
+    public vatNumber : string = "";
 }
 
 export class DefaultCheckInOutDates {

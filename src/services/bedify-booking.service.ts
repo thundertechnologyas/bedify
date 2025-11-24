@@ -41,7 +41,8 @@ export class BedifyBookingService {
   public headerChanged(checkin: string | null | undefined, 
     checkout: string | null | undefined, 
     discountCode: string | null | undefined,
-    bookingEngineId: string | null | undefined
+    bookingEngineId: string | null | undefined,
+    multiProperty : boolean
   ) {
     this.setSessionItem("checkin", checkin);
     this.setSessionItem("checkout", checkout);
@@ -53,6 +54,8 @@ export class BedifyBookingService {
     if (this.headerFilter.bookingEngineId != bookingEngineId || !discountCode) {
       this.removeDiscountCode();
     }
+    
+    this.headerFilter.multiProperty = multiProperty;
 
     this.loadFilterFromSessionStorage()
     this.filterSubject.next(this.headerFilter);

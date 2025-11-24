@@ -12,9 +12,31 @@
 <div class="company" *ngIf="companySlider.checked">
 
   <form class="companydetails" [formGroup]="this.companyForm">
+
+  
     <mat-form-field class="companyname">
-      <mat-label>Company Name</mat-label>
+      <mat-label>{{ 'bookingengine.37' | translate }}</mat-label>
+      <input type="text"
+            placeholder="Pick one"
+            aria-label="Number"
+            matInput
+            formControlName="country"
+            [value]="this.getPrefixPrint()"
+            [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let country of this.filteredCountries | async" (click)="countryChanged(country)" [value]="country.code">{{  country.emoji + " " + country.name  }}</mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  
+    <mat-form-field class="companyname">
+      <mat-label>{{ 'bookingengine.69' | translate }}</mat-label>
       <input matInput placeholder="" value="" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field class="vatnumber">
+      <mat-label>{{ 'bookingengine.70' | translate }}</mat-label>
+      <input matInput placeholder="" value="" formControlName="vatNumber">
+      <mat-error *ngIf="!this.companyForm.controls.vatNumber.valid">{{ 'bookingengine.71' | translate }}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="address">

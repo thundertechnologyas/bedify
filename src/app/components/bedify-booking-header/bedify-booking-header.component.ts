@@ -37,6 +37,9 @@ export class BedifyBookingHeader implements AfterViewInit {
   @Input("multilanguage")
   public multiLanguage = true;
 
+  @Input("multiproperty")
+  public multiProperty = false;
+
   @Input("standaloneredirecturl")
   public standaloneredirecturl = "";
 
@@ -78,7 +81,20 @@ export class BedifyBookingHeader implements AfterViewInit {
       });
 
       this.group.valueChanges.subscribe(res => {
-        this.dataService.headerChanged(res.checkin, res.checkout, res.discountCode, res.bookingEngineId);
+
+        let checkinDate = new Date(res.checkin as any);
+        let checkoutDate = new Date(res.checkout as any);
+        
+        if (checkoutDate < checkinDate) {
+          let nextDay = new Date(checkinDate);
+          nextDay.setDate(checkinDate.getDate() + 1);
+          this.group.patchValue( {
+            checkout : nextDay as any
+          });
+          return;
+        }
+
+        this.dataService.headerChanged(res.checkin, res.checkout, res.discountCode, res.bookingEngineId, this.multiProperty);
       });
 
       this.dataService.headerSubjectNotEmit.subscribe(res => {

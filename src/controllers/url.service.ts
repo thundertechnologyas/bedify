@@ -37,6 +37,12 @@ export class UrlService {
     let bookingEngineId = sessionStorage.getItem("bookingEngineId");
 
     if (!bookingEngineId) {
+      let tenantId = sessionStorage.getItem("tenantId");;
+      
+      if (tenantId !== null) {
+        return tenantId;
+      }
+      
       return undefined;
     }
 

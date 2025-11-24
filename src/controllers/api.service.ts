@@ -24,7 +24,8 @@ export class ApiService {
 
   constructor(
     public bookingController: ExternalBookingController,
-    public tenantController: TenantController
+    public tenantController: TenantController,
+    public guestPortalController: GuestPortalController,
   ) {
 
   }
@@ -107,5 +108,36 @@ export class TenantController {
 
     let headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpService.get(this.urlService.getBackendUrl() + '/bedify/tenant/' + tenantId, { headers });
+  }
+}
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GuestPortalController {
+  httpService: HttpClient;
+  urlService: UrlService;
+
+  public constructor(httpService: HttpClient, urlService: UrlService) {
+    this.httpService = httpService; this.urlService = urlService;
+  }
+
+  public get(token: String): Observable<any> {
+    let headersWihtoutCredentials = new HttpHeaders().set('Content-type', 'application/json').set("TenantId", this.urlService.getCurrentTenantId() || "");
+    let headers = { headers: headersWihtoutCredentials, withCredentials: true};
+    return this.httpService.get(this.urlService.getBackendUrl() + '/bedify/guestportal/?token=' + token, headers);
+  }
+
+  public pulseOpen(token: String, lockid: String): Observable<any> {
+    let headersWihtoutCredentials = new HttpHeaders().set('Content-type', 'application/json').set("TenantId", this.urlService.getCurrentTenantId() || "");
+    let headers = { headers: headersWihtoutCredentials, withCredentials: true};
+    return this.httpService.get(this.urlService.getBackendUrl() + '/bedify/guestportal/pulseopen?token=' + token + "&lockid="+lockid, headers);
+  }
+  
+  public getPulseOpenStatus(token: String, requestid: String): Observable<any> {
+    let headersWihtoutCredentials = new HttpHeaders().set('Content-type', 'application/json').set("TenantId", this.urlService.getCurrentTenantId() || "");
+    let headers = { headers: headersWihtoutCredentials, withCredentials: true};
+    return this.httpService.get(this.urlService.getBackendUrl() + '/bedify/guestportal/pulseopenstatus?token=' + token + "&requestid="+requestid, headers);
   }
 }

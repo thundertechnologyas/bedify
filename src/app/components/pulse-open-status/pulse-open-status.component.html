@@ -1,0 +1,19 @@
+<mat-dialog-content>
+  <div class="bars" *ngIf="!success">
+    <div class="bar" *ngFor="let b of [1,2,3,4,5]"></div>
+  </div>
+
+  <div *ngIf="!success">
+    {{
+        'guestportal.14' | translate
+    }}
+  </div>
+
+
+  <div *ngIf="success" class="success-container">
+    <svg class="checkmark" viewBox="0 0 52 52">
+      <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+      <path class="checkmark-check" fill="none" d="M14 27l7 7 16-16"/>
+    </svg>
+  </div>
+</mat-dialog-content>

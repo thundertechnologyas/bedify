@@ -1,0 +1,22 @@
+
+.logo {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    height: 100px;
+    vertical-align: middle;
+}
+
+.logo img {
+    display: inline-block;
+    margin: 0 auto;
+    max-width: 300px;
+    max-height: 100px;
+}
+
+.content {
+    box-sizing: border-box;
+    background-color: #f6f8fb;
+    min-height: calc(100vh);
+    padding: 20px;
+}
