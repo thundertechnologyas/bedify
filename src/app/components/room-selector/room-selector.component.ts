@@ -15,6 +15,8 @@ export class RoomSelectorComponent implements AfterViewInit {
   @ViewChildren('room')
   public roomsComponents!: QueryList<RoomComponent>;
 
+  public multiProperty = false;
+
   public numberOfRoomsControl = new FormControl();
   private MAX_NUMBER_OF_ROOMS = 30;
 

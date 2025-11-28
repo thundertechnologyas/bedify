@@ -47,7 +47,7 @@
     "bookingengine.50" : "Reservation confirmed",
     "bookingengine.51" : "Try again",
     "bookingengine.52" : "Make a new reservation",
-    "bookingengine.53" : "Running out of rooms!",
+    "bookingengine.53" : "Not available",
     "bookingengine.54" : "We are sorry to inform you that we only have {{ available }} room(s) available.",
     "bookingengine.55" : "Thank you, almost done...",
     "bookingengine.56" : "Book now",
@@ -66,6 +66,9 @@
     "bookingengine.69" : "Company Name", 
     "bookingengine.70" : "Vat number", 
     "bookingengine.71" : "Must be a valid VAT number", 
+    "bookingengine.72" : "We have only {{count}} room(s) available", 
+    "bookingengine.73" : "Sold out", 
+    "bookingengine.74" : "From {{amount}}", 
 
     "guestportal.1" : "Guests",
     "guestportal.2" : "Your room",
@@ -88,7 +91,12 @@
     "facilities.wind" : "Hairdryer",
     "facilities.shirt" : "Iron",
 
-    
+    "room_restricted_min_nights" : "You need to book minimum of {{count}} nights",
+    "room_restricted_closed" : "We have close to booking in this periode, try other dates",
+    "room_restricted_min_stay_arrival_day" : "We have close to booking in this periode, try other dates",
+    "room_restricted_closed_arrivaldate" : "We have closed for checkin on this date",
+    "room_restricted_to_many_guests" : "No rooms for {{count}} guests, select fewer guests",
+
     "error_discount_not_found" : "Discount code not found",
     "error_campain_currently_not_available" : "Discount currently not available",
     "error_campain_not_valid_for_booked_periode" : "Your reservation needs to start between {{start}} - {{end}}",

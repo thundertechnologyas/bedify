@@ -18,9 +18,12 @@ export class BedifyProgressService {
   public loadingRoomInfo: boolean = false;
   public loadingBack: boolean = false;
   
-  public step: string = "configrooms";
+  public step: string = "selecthotel";
 
   public nextSubject = new BehaviorSubject<string>("");
+  groups: any;
+  
+  public multiPropertyActivated: boolean = false;
   
   next() {
 
@@ -91,12 +94,19 @@ export class BedifyProgressService {
   }
 
   constructor(private bedifyService: BedifyBookingService) { 
+    this.bedifyService.onMultipropertyLoaded().subscribe(groups => {
+        this.step = "selecthotel";
+        this.currentRoom = null;
+    });
+
     this.bedifyService.onGroupLoaded().subscribe(loadedEvent => {
       let event = loadedEvent as any;
 
       if (!event) {
         return;
       }
+
+      this.bedifyService.multiProperty = false;
 
       if (event.group && !event.loadedFromSession) {
         this.step = "configrooms";
@@ -137,6 +147,12 @@ export class BedifyProgressService {
         this.step = step;
       }
       
+      if (this.step == "selecthotel") {
+        this.bedifyService.multiProperty = true;
+        this.bedifyService.loadSelectHotel();
+        return;
+      }
+
       if (!currentroom || currentroom == "none") {
         this.currentRoom = null;
       } else {

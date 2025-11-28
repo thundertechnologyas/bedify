@@ -12,6 +12,9 @@ export class RoomComponent {
   @Input("roomNumber")
   public roomNumber: number = 0;
 
+  @Input("multiProperty")
+  public multiProperty: boolean = false;
+
   public adults:number = 1;
   public children:number = 0;
 
@@ -31,15 +34,8 @@ export class RoomComponent {
   }
 
   addAdults() {
-    let config = this.dataService.getBookingEngineConfig();
-
-    let tenantConfig = (<TenantBookingEngineConfig>config).bookingEngine
-
-    if (tenantConfig == null) {
-      return;
-    }
-
-    if (tenantConfig.maxNumberOfGuests <= this.adults) {
+    
+    if (this.dataService.getMaxNumberOfAdults(this.multiProperty) <= this.adults) {
       return;
     }
     

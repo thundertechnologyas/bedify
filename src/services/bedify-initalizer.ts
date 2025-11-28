@@ -17,7 +17,6 @@ import { UrlService } from '../controllers/url.service';
 })
 export class BedifyInitalizer {
 
-  public sub = new BehaviorSubject(false);
 
   constructor(private galaxyService: GalaxyService, 
     private tenantController: TenantController,
@@ -26,15 +25,15 @@ export class BedifyInitalizer {
     private bedifyService: BedifyBookingService) {
   }
 
-  initBookingEngines(bookingEngineConfigs: TenantBookingEngineConfig[]) {
+  initBookingEngines(bookingEngineConfigs: TenantBookingEngineConfig[], multiproperties: boolean) {
     this.galaxyService.init(bookingEngineConfigs).subscribe(bookingEngineConfigs => {
       this.bedifyService.bookingEngineConfigs = bookingEngineConfigs;
       this.urlService.bookingEngineConfigs = bookingEngineConfigs;
-      this.loadTenantAndBookingEngineInformations();
+      this.loadTenantAndBookingEngineInformations(multiproperties);
     });
   }
 
-  private loadTenantAndBookingEngineInformations() {
+  private loadTenantAndBookingEngineInformations(multiproperty: boolean) {
     let subs : Observable<any>[] = [];
 
     if (this.bedifyService.bookingEngineConfigs == null) {
@@ -71,14 +70,8 @@ export class BedifyInitalizer {
 
       this.bedifyService.bookingEngineConfigs = res.map(r => r.config);
       this.urlService.bookingEngineConfigs = this.bedifyService.bookingEngineConfigs;
-      this.bedifyService.bedifyInitialized();
-
-      this.sub.next(true);
+      this.bedifyService.bedifyInitialized(multiproperty);
     });
-  }
-
-  public onReady() : Observable<boolean> {
-    return this.sub.asObservable();
   }
 
 

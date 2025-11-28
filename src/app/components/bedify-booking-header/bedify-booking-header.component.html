@@ -23,7 +23,7 @@
                 </mat-form-field>
             </div>
 
-            <div *ngIf="this.tenants.length > 1">
+            <div *ngIf="this.tenants.length > 1 && !this.isMultiPropertyActivated()">
                 <mat-form-field class="tenantselections">
                     <mat-label>
                         {{

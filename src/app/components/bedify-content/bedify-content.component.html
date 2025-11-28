@@ -14,7 +14,17 @@
     </div>
 </ng-container>
 
-<ng-container *ngIf="!this.loading">
+<ng-container *ngIf="!this.loading && this.multiproperty">
+    <div class="multipropertyouter">
+        <div class="multiproperty">
+            <div *ngFor="let group of groups">
+                <app-hotel-view [group]="group"></app-hotel-view>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="!this.loading && !this.multiproperty">
     <div *ngIf="this.bedifyProgressService.loadingRoomInfo " class="bedify-content-outer">
         <div class="bedify-content-inner roomloader">
             <i class="fa-sharp-duotone fa-solid fa-spinner-scale fa-spin"></i>

@@ -12,7 +12,7 @@
 
   <div class="roomslist">
     <div *ngFor="let a of this.numberOfRooms" class="room">
-      <app-room [roomNumber]="a" #room></app-room>
+      <app-room [roomNumber]="a" #room [multiProperty]="this.multiProperty"></app-room>
     </div>
   </div>
 </mat-dialog-content>

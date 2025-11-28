@@ -49,6 +49,7 @@ import { AddtionalProductViewComponent } from './components/additional-addon-dia
 import { GuestPortalComponent } from './components/guest-portal/guest-portal.component';
 import { GuestPortalFrontComponent } from './components/guest-portal-front/guest-portal-front.component';
 import { PulseOpenStatusComponent } from './components/pulse-open-status/pulse-open-status.component';
+import { HotelViewComponent } from './components/hotel-view/hotel-view.component';
 
 registerLocaleData(localNo);
 registerLocaleData(localFi);
@@ -88,7 +89,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddtionalProductViewComponent,
     GuestPortalComponent,
     GuestPortalFrontComponent,
-    PulseOpenStatusComponent
+    PulseOpenStatusComponent,
+    HotelViewComponent
   ],
   imports: [
     BrowserModule,

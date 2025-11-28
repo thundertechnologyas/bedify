@@ -4,7 +4,6 @@ export class HeaderFilter {
     public discountCode : string | null | undefined  = null;
     public bookingEngineId : string | null | undefined  = null;
     public rooms: RoomConfig[] = [];
-    public multiProperty = false;
 }
 
 export class BookingEngine {
@@ -21,6 +20,12 @@ export class BookingEngine {
     public termsAndConditions = "";
     public payPartial = false;
     public partialPaymentPercentage = 0;
+
+    public hotelName = "";
+    public hotelAddress = "";
+    public hotelCity = "";
+    public hotelPostCode = "";
+    public hotelDescription = "";
 }
   
 export class GroupBooking {
@@ -39,7 +44,10 @@ export class GroupBooking {
     public comment: string = "";
     public payOnArrival = false;
     public sessionId = "";
-  
+    public totalAvailableRooms = 0;
+
+    public images : string[] = [];
+
     constructor() { 
     }
 }
@@ -53,6 +61,7 @@ export class BookingStartPaymentRequest {
 }
 
 export class GroupLoadedEvent {
+    public groups : GroupBooking[] | null = null;
     public group : GroupBooking | null = null;
     public loadedFromSession = false;
     public paymentFailed = false;
@@ -85,6 +94,7 @@ export class RoomConfig {
     public selectedRentalObjectId = "";
     public rooms: Room[] = [];
     public guests: GuestInfo[] = [];
+    public restrictionReason = "";
 
     getSelectedRoom() {
         return this.rooms.filter(o => o.rentalObjectId == this.selectedRentalObjectId)[0];

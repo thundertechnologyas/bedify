@@ -1,6 +1,7 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { BedifyBookingService } from '../../../services/bedify-booking.service';
 import { BedifyProgressService } from '../../../services/bedify-progress.service';
+import { GroupBooking, GroupLoadedEvent } from '../../../services/bedify-classes';
 
 @Component({
   selector: 'app-bedify-content',
@@ -11,9 +12,12 @@ export class BedifyContentComponent implements AfterViewChecked {
   public loading = false;
   private lastSetLoadingTime: number = 0;
 
+  public multiproperty = false;
 
   @ViewChild('topOfComponent') 
   private topOfComponent! : ElementRef;
+  
+  public groups: GroupBooking[] = [];
 
   constructor(
     public bedifyService: BedifyBookingService,
@@ -26,7 +30,19 @@ export class BedifyContentComponent implements AfterViewChecked {
       this.lastSetLoadingTime = Date.now();
     });
 
-    bedifyService.onGroupLoaded().subscribe(() => {
+    bedifyService.onMultipropertyLoaded().subscribe(groups => {
+      this.multiproperty = true;
+      this.groups = groups;
+      this.loading = false;
+    });
+
+    bedifyService.onGroupLoaded().subscribe(res => {
+      if (res == null) {
+        this.loading = true;
+        return;
+      }
+      
+      this.multiproperty = false;
       const currentTime = Date.now();
       if (currentTime - this.lastSetLoadingTime >= 400) {
         this.loading = false;
@@ -41,11 +57,9 @@ export class BedifyContentComponent implements AfterViewChecked {
   ngAfterViewChecked(): void {
     if (this.bedifyProgressService.loadingRoomInfo) {
       let top = this.topOfComponent.nativeElement.getBoundingClientRect().top;
-
       window.scrollBy(0,top);
-
- 
     }
-    
   }
+
+
 }

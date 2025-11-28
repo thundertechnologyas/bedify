@@ -1,0 +1,92 @@
+<div class="outer">
+    <div class="inner" *ngIf="this.bookingEngine">
+        <div [photoGalleryGroup]="{ arrowEl: true, indexIndicatorSep: ' - '}" class="photo">
+          <div class="products-item" *ngFor="let img of this.images; let i = index" [hidden]="i > 0">
+            <div class="products-item-name"></div>
+            <div class="products-item-image" [photoGallery]="this.getImageEndpoint() + img">
+              <img [src]="this.getImageEndpoint() + img" />
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!this.isBookable" class="leftwarning">
+            <i class="fa fa-solid fa-fire"></i>
+            {{
+                'bookingengine.73' | translate
+            }}
+        </div>
+
+        <div *ngIf="this.maxNumberOfRooms <= 5 && this.maxNumberOfRooms > 0 && this.isBookable" class="leftwarning">
+            <i class="fa fa-solid fa-fire"></i>
+            {{
+                'bookingengine.24' | translate : {
+                    'roomCount' : this.maxNumberOfRooms
+                }
+            }}
+        </div>
+
+        <div class="hoteltitle">
+            {{
+                this.bookingEngine.bookingEngine?.hotelName
+            }}
+        </div>
+
+        <div class="hoteladdress">
+            <i class="fa fa-location-check"></i>
+            {{
+                this.bookingEngine.bookingEngine?.hotelAddress
+            }}, {{
+                this.bookingEngine.bookingEngine?.hotelCity
+            }}
+        </div>
+
+        <div class="description">
+            {{
+                
+                this.bookingEngine.bookingEngine?.hotelDescription
+            }}
+        </div>
+
+        <div *ngIf="this.isBookable" class="bookingbuttons">
+            <div class="nextbutton bedify-button" (click)="this.bookNow()"> 
+                {{
+                    'bookingengine.56' | translate
+                }}
+                <br/>
+                {{
+                    'bookingengine.74' | translate : {
+                        amount : this.minPrice | currency : this.currency
+                    }
+                }}
+            </div>
+        </div>
+
+        <div *ngIf="!this.isBookable" class="bookingbuttons not_available">
+            <div class="headline" > 
+                {{
+                    'bookingengine.53' | translate
+                }}
+            </div>
+        
+
+            <div *ngIf="this.restrictionReasons.length > 0" class="subinfo">
+                <div *ngFor="let reason of this.restrictionReasons">
+                    <ng-container *ngIf="reason.indexOf('||') > -1">
+                        {{
+                            reason.split("||")[0] | translate : {
+                                count : reason.split("||")[1]
+                            }
+                        }}
+                    </ng-container>
+                    
+                    <ng-container *ngIf="reason.indexOf('||') < 0">
+                        {{
+                            reason | translate
+                        }}
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

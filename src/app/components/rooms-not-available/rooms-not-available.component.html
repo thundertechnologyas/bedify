@@ -1,5 +1,25 @@
 <div class="bedify-content-outer">
     <div class="bedify-content-inner success">
+        <div *ngIf="this.restrictionReasons.length > 0" class="subinfo">
+            <i class="fa fa-warning"></i>
+            <div *ngFor="let reason of this.restrictionReasons">
+                <ng-container *ngIf="reason.indexOf('||') > -1">
+                    {{
+                        reason.split("||")[0] | translate : {
+                            count : reason.split("||")[1]
+                        }
+                    }}
+                </ng-container>
+                
+                <ng-container *ngIf="reason.indexOf('||') < 0">
+                    {{
+                        reason | translate
+                    }}
+                </ng-container>
+            </div>
+        </div>
+        <br/>
+
         <i class="fa-sharp fa-light fa-bed-pulse"></i>
 
         <div class="reason">
@@ -18,4 +38,6 @@
             }}
         </div>
     </div>
+    
+
 </div>

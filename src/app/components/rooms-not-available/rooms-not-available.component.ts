@@ -34,4 +34,13 @@ export class RoomsNotAvailableComponent {
     return found;
   }
 
+  get restrictionReasons() {
+    if (this.bedifyService.group) {
+      return [...new Set([...this.bedifyService.group.rooms.filter(o => o.restrictionReason).map(o => o.restrictionReason)])];
+    }
+    
+    return []
+    
+  }
+
 }

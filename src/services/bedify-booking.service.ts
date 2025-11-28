@@ -12,6 +12,9 @@ export class BedifyBookingService {
   public successUrl: string = "";
   public failedUrl: string = "";
   
+  public multiProperty = false;
+  public multiPropertyActivated: boolean = false;
+  
   setGroupComment(res: string | null) {
     this.group.comment = res || "";
     sessionStorage.setItem("groupcomment", this.group.comment);
@@ -34,6 +37,8 @@ export class BedifyBookingService {
 
   private groupSubject = new BehaviorSubject<GroupLoadedEvent | boolean | null>(null);
 
+  private multipropertyLoaded = new BehaviorSubject<GroupBooking[]>([]);
+
   private headerSubject = new BehaviorSubject<HeaderFilter | null | boolean>(null);
 
   public headerSubjectNotEmit = new BehaviorSubject<HeaderFilter | null | boolean>(null);
@@ -41,8 +46,7 @@ export class BedifyBookingService {
   public headerChanged(checkin: string | null | undefined, 
     checkout: string | null | undefined, 
     discountCode: string | null | undefined,
-    bookingEngineId: string | null | undefined,
-    multiProperty : boolean
+    bookingEngineId: string | null | undefined
   ) {
     this.setSessionItem("checkin", checkin);
     this.setSessionItem("checkout", checkout);
@@ -54,12 +58,16 @@ export class BedifyBookingService {
     if (this.headerFilter.bookingEngineId != bookingEngineId || !discountCode) {
       this.removeDiscountCode();
     }
-    
-    this.headerFilter.multiProperty = multiProperty;
 
     this.loadFilterFromSessionStorage()
     this.filterSubject.next(this.headerFilter);
-    this.loadAvailability();
+
+    if (this.isSelectHotelStep) {
+      this.loadAllGroups();
+    } else {
+      this.loadAvailability();
+    }
+    
     this.headerSubject.next(this.headerFilter);
   }
 
@@ -119,6 +127,11 @@ export class BedifyBookingService {
     return this.groupSubject.asObservable();
   }
 
+  public onMultipropertyLoaded() : Observable<GroupBooking[]> {
+    return this.multipropertyLoaded.asObservable();
+  }
+
+
   public roomsConfigChanged(rooms : RoomConfig[]) {
     this.group.rooms = [];
     this.group.hotelCollect = false;
@@ -127,10 +140,33 @@ export class BedifyBookingService {
     
     this.loadFilterFromSessionStorage();
     this.filterSubject.next(this.headerFilter);
-    this.loadAvailability();
+
+    if (this.isSelectHotelStep) {
+      this.loadAllGroups();
+    } else {
+      this.loadAvailability();
+    }
+    
   }
 
-  private loadAvailability(first=false) {
+  private loadAllGroups() {
+    this.groupSubject.next(null);
+    let group = this.getGroupToLoad();
+
+    let subs = this.bookingEngineConfigs?.map(o => {
+      const groupCopy = JSON.parse(JSON.stringify(group));
+      groupCopy.bookingEngineId = o.bookingEngineId;
+      this.setSessionItem("bookingEngineId", o.bookingEngineId);
+      return this.bookingEngineController.getAvailability(groupCopy);
+    }) as Observable<GroupBooking>[];
+
+    forkJoin(subs).subscribe(res => {
+      this.group = group;
+      this.multipropertyLoaded.next(res);
+    });
+  }
+
+  getGroupToLoad(first = false) {
     let group = new GroupBooking();
 
     if (first && !this.headerFilterValid) {
@@ -151,6 +187,12 @@ export class BedifyBookingService {
       group.rooms.push(room);
     }
 
+    return group;
+  }
+
+  private loadAvailability(first=false) {
+    let group = this.getGroupToLoad(first);
+
     if (!this.headerFilterValid) {
       this.groupSubject.next(false);  
     } else {
@@ -168,7 +210,8 @@ export class BedifyBookingService {
         
         this.group = res;
         this.groupSubject.next(groupLoadedEvent);
-      });  
+      }); 
+
     }
   }
 
@@ -197,7 +240,22 @@ export class BedifyBookingService {
     return this.group;
   } 
 
-  public bedifyInitialized() {
+  get isSelectHotelStep() {
+    if (!this.multiPropertyActivated) {
+      return false;
+    }
+
+    let hasStep = window.location.href.includes("step")
+
+    if (!hasStep) {
+      return true;
+    }
+
+    return window.location.href.includes("step=selecthotel");
+  }
+
+  public bedifyInitialized(multiproperty : boolean) {
+    this.multiPropertyActivated = multiproperty;
 
     if (window.location.href.includes("paymentstatus=success")) {
       sessionStorage.removeItem("bedify_booking_session_id");
@@ -215,7 +273,12 @@ export class BedifyBookingService {
         }
       });
     } else {
-      this.loadAvailability(true);
+      if (this.isSelectHotelStep) {
+        this.loadAllGroups();
+      } else {
+        this.loadAvailability(true);
+      }
+      
     }
   }
 
@@ -240,6 +303,30 @@ export class BedifyBookingService {
     let bookingEngineId = sessionStorage.getItem("bookingEngineId");
 
     let ret = this.bookingEngineConfigs?.filter(o => o.bookingEngineId == bookingEngineId)[0];
+
+    return ret;
+  }
+
+  getBookingEngine(engineId : string) {
+    return this.bookingEngineConfigs?.filter(o => o.bookingEngineId == engineId)[0];
+  }
+
+  getMaxNumberOfAdults(multiProperty: boolean) {
+    let ret = 0;
+
+    if (multiProperty) {
+      this.bookingEngineConfigs?.forEach(engine => {
+          if (engine.bookingEngine && engine.bookingEngine.maxNumberOfGuests > ret) {
+            ret = engine.bookingEngine?.maxNumberOfGuests;
+          }
+      });
+    } else {
+      let conf = this.getBookingEngineConfig();
+      if (conf && conf.bookingEngine) {
+        return conf.bookingEngine.maxNumberOfGuests;
+      }
+    }
+    
 
     return ret;
   }
@@ -302,5 +389,17 @@ export class BedifyBookingService {
     }
 
     return "https://"+config.workerNodes.filter(o => o.appModuleId == "6162ab1ca79bee36c683968b")[0].endPoint + "/commerce/productcontroller/image?uuid="+imageUuid+"&tenantId=" + config.tenantId; 
+  }
+  
+  bookGroup(groupBooking: GroupBooking) {
+    sessionStorage.setItem("bookingEngineId", groupBooking.bookingEngineId);
+    this.group = groupBooking;
+    this.multiProperty = false;
+    this.loadAvailability(false);
+  }
+
+  public loadSelectHotel() {
+    this.multiProperty = true;
+    this.loadAllGroups();
   }
 }

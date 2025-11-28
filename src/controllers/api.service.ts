@@ -52,6 +52,7 @@ export class ExternalBookingController {
   public getAvailability(arg0: GroupBooking): Observable<GroupBooking> {
     let headersWihtoutCredentials = new HttpHeaders().set('Content-type', 'application/json').set("TenantId", this.urlService.getCurrentTenantId() || "");
     let headers = { headers: headersWihtoutCredentials, withCredentials: true};
+    console.log(headers);
     return this.httpService.post<GroupBooking>(this.urlService.getBackendUrl() + '/bedify/booking/availability', arg0, headers );
   }
 

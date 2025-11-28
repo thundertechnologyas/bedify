@@ -9,6 +9,7 @@ import { TranslationService } from '../../../services/translation.service';
 
 import data from '../../../assets/data/availableLangs.json';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
+import { BedifyProgressService } from '../../../services/bedify-progress.service';
 
 @Component({
   selector: 'app-bedify-booking-header',
@@ -38,7 +39,7 @@ export class BedifyBookingHeader implements AfterViewInit {
   public multiLanguage = true;
 
   @Input("multiproperty")
-  public multiProperty = false;
+  public multiProperty = "";
 
   @Input("standaloneredirecturl")
   public standaloneredirecturl = "";
@@ -67,6 +68,7 @@ export class BedifyBookingHeader implements AfterViewInit {
   constructor(public dataService: BedifyBookingService,
     private bedifyInitilizer: BedifyInitalizer,
     private translationService: TranslationService,
+    private progress: BedifyProgressService,
     private dialog: MatDialog) {
 
       this.patchValues();
@@ -76,9 +78,6 @@ export class BedifyBookingHeader implements AfterViewInit {
       }
       
       translationService.changeLang(this._selectedLang);
-      
-      bedifyInitilizer.onReady().subscribe(res => {
-      });
 
       this.group.valueChanges.subscribe(res => {
 
@@ -88,13 +87,15 @@ export class BedifyBookingHeader implements AfterViewInit {
         if (checkoutDate < checkinDate) {
           let nextDay = new Date(checkinDate);
           nextDay.setDate(checkinDate.getDate() + 1);
+          
           this.group.patchValue( {
             checkout : nextDay as any
           });
+
           return;
         }
 
-        this.dataService.headerChanged(res.checkin, res.checkout, res.discountCode, res.bookingEngineId, this.multiProperty);
+        this.dataService.headerChanged(res.checkin, res.checkout, res.discountCode, res.bookingEngineId);
       });
 
       this.dataService.headerSubjectNotEmit.subscribe(res => {
@@ -113,8 +114,14 @@ export class BedifyBookingHeader implements AfterViewInit {
     });
   }
 
+  isMultiPropertyActivated() {
+    return this.multiProperty.toLowerCase() == "true";
+  }
+
   ngAfterViewInit(): void {
-    
+    this.progress.multiPropertyActivated = this.isMultiPropertyActivated();
+    this.dataService.multiPropertyActivated = this.isMultiPropertyActivated();
+
     this.tenants = JSON.parse(this.configs);
 
     if (!this.successurl && !this.failedurl) {
@@ -126,8 +133,7 @@ export class BedifyBookingHeader implements AfterViewInit {
     }
 
     this.dataService.setUrl(this.successurl, this.failedurl);
-
-    this.bedifyInitilizer.initBookingEngines(this.tenants);
+    this.bedifyInitilizer.initBookingEngines(this.tenants, this.isMultiPropertyActivated());
   }
 
   get checkoutDate() {
@@ -147,6 +153,7 @@ export class BedifyBookingHeader implements AfterViewInit {
 
   get roomsAndGuests() {
     let rooms = this.dataService.group.rooms;
+    
     let guests = 0;
     rooms.forEach(r => {
       guests += r.adults;
@@ -157,6 +164,7 @@ export class BedifyBookingHeader implements AfterViewInit {
 
   showRoomConfig() {
     let dialogRef = this.dialog.open(RoomSelectorComponent);    
+    //dialogRef.componentInstance.multiProperty = this.isMultiProperty(false);
   }
 
   showDiscount() {
