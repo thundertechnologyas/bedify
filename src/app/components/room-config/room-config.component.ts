@@ -112,4 +112,8 @@ export class RoomConfigComponent implements AfterViewInit {
     
     this.bedifyProgressService.next();
   }
+
+  replaceNbsps(str: any) {
+      return str.replace(/&nbsp;/g, ' ');
+  }
 }

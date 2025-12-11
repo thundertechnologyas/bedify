@@ -39,7 +39,7 @@
           </div>
 
           <div *ngIf="this.hasPayLater && !this.dataService.group.hotelCollect" class="next" [class.disabled]="!this.valid">
-            <mat-radio-button value="payOnCheckin">
+            <mat-radio-button value="payOnCheckin" [checked]="this.paymentOptionType.value == 'payOnCheckin'">
               {{ 'bookingengine.28' | translate }}
             </mat-radio-button>
 
@@ -51,16 +51,16 @@
           </div>
 
           <div class="next" [class.disabled]="!this.valid" *ngIf="this.dataService.getGroup().hotelCollect">
-            <mat-radio-button value="payWithHotelCollect">
+            <mat-radio-button value="payWithHotelCollect" [checked]="this.paymentOptionType.value == 'payWithHotelCollect'">
               <span>
                 {{ 'bookingengine.29' | translate }}
               </span>
             </mat-radio-button>
           </div>
 
-          <div class="next" [class.disabled]="!this.valid" *ngIf="this.hasOnlinePaymentPaymentMethods && !this.dataService.getGroup().hotelCollect">
+          <div class="next" [class.disabled]="!this.valid" *ngIf="this.hasOnlinePaymentPaymentMethods">
 
-            <mat-radio-button value="startPaymentDirectFalse">
+            <mat-radio-button value="startPaymentDirectFalse" [checked]="this.paymentOptionType.value == 'startPaymentDirectFalse'">
                 {{
                   'bookingengine.30' | translate : {
                     total : this.total | currency : this.dataService.currency

@@ -9,7 +9,7 @@
         <img [src]="this.image"/>
     </div>
 
-    <div [innerHTML]="this.optionalAddon.product.defaultDescription" class="extra"></div>
+    <div [innerHTML]="replaceNbsps(this.optionalAddon.product.defaultDescription)" class="extra"></div>
 
     <div class="bedify_addon_selector">
         

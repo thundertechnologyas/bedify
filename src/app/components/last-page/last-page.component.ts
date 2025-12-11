@@ -50,7 +50,7 @@ export class LastPageComponent implements OnDestroy, AfterViewInit{
   }
   
   selectPaymentMethod() {
-    console.log(this.hasOnlinePaymentPaymentMethods);
+    
     if (this.hasOnlinePaymentPaymentMethods) {
       this.paymentOptionType.patchValue("startPaymentDirectFalse");
     } else if (this.hasPayLater) {
@@ -59,6 +59,7 @@ export class LastPageComponent implements OnDestroy, AfterViewInit{
       this.paymentOptionType.patchValue("payWithHotelCollect");
     }
   
+    console.log(this.paymentOptionType.value);
   }
 
   ngOnDestroy(): void {
@@ -133,8 +134,13 @@ export class LastPageComponent implements OnDestroy, AfterViewInit{
       paymentRequest.partial = partial;
 
       this.bookingController.startPayment(paymentRequest).subscribe(res => {
-        this.waitingForPaymentTransfer = false;
-        window.document.location = res.remotePaymentWindowUrl;
+        if (res.remotePaymentWindowUrl == "null_payment") {
+          this.progressService.reservationCompleted();
+        } else {
+          this.waitingForPaymentTransfer = false;
+          window.document.location = res.remotePaymentWindowUrl;
+        }
+        
       });
     });
   }
@@ -220,6 +226,7 @@ export class LastPageComponent implements OnDestroy, AfterViewInit{
   }
 
   initPayment() {
+
     switch(this.paymentOptionType.value) {
       case "startPaymentDirectTrue": {
         this.startPaymentDirect(true);
@@ -235,9 +242,14 @@ export class LastPageComponent implements OnDestroy, AfterViewInit{
         this.payOnCheckin();
         break;
       }
+
+      case "payWithHotelCollect": {
+        this.payOnCheckin();
+        break;
+      }
       
     }
 
-    console.log(this.paymentOptionType);
+    
   }
 }

@@ -40,4 +40,8 @@ export class AddtionalProductViewComponent {
     this.eventEmitter.emit(event.checked);
   }
 
+  replaceNbsps(str: any) {
+      return str.replace(/&nbsp;/g, ' ');
+  }
+
 }

@@ -23,7 +23,7 @@
     "bookingengine.26" : "Payment",
     "bookingengine.27" : "We need all the information above.",
     "bookingengine.28" : "Pay later",
-    "bookingengine.29" : "Complete reservation",
+    "bookingengine.29" : "Pay later (invoice)",
     "bookingengine.30" : "Pay now - {{ total }}",
     "bookingengine.31" : "You are now being transferred to our payment provider.",
     "bookingengine.32" : "Guest {{ guestIndex }}",
