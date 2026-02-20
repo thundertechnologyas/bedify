@@ -1,3 +1,6 @@
-<div class="content">
-    <app-guest-portal></app-guest-portal>
+<div class="content" *ngIf="!this.loaded">
+    <i class="fa fa-spin fa-spinner"></i>
+</div>
+<div class="content" [hidden]="!this.loaded">
+    <app-guest-portal #content></app-guest-portal>
 </div>

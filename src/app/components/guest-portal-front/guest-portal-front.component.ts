@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BedifyBookingService } from '../../../services/bedify-booking.service';
+import { GalaxyService } from '../../../controllers/galaxy.service';
+import { UrlService } from '../../../controllers/url.service';
+import { GuestPortalComponent } from '../guest-portal/guest-portal.component';
 
 @Component({
   selector: 'app-guest-portal-front',
@@ -10,11 +13,24 @@ import { BedifyBookingService } from '../../../services/bedify-booking.service';
 export class GuestPortalFrontComponent {
   tenantId: any;
   bookingEngineId: any;
-  
-  constructor(route: ActivatedRoute, private bedifyService: BedifyBookingService) {
+  public loaded = false;
+
+  @ViewChild("content")
+  private content !: GuestPortalComponent;
+
+  constructor(route: ActivatedRoute, private bedifyService: BedifyBookingService, private galaxyService: GalaxyService, private urlService: UrlService) {
     this.tenantId = route.snapshot.params['tenantId'];
-    this.bookingEngineId = route.snapshot.params['bookingEngineId']; 
+    this.bookingEngineId = "guestportal";
+
     sessionStorage.setItem("tenantId", this.tenantId);
+    sessionStorage.setItem("bookingEngineId", this.bookingEngineId);
+
+    this.galaxyService.initByTenantId(this.tenantId).subscribe(res => {
+      this.bedifyService.bookingEngineConfigs = [res];
+      this.urlService.bookingEngineConfigs = this.bedifyService.bookingEngineConfigs;
+      this.loaded = true;
+      this.content.load();
+    })
   }
 
   get configs() {
@@ -25,6 +41,6 @@ export class GuestPortalFrontComponent {
   }
 
   get logo() {
-    return "https://auth.thundertech.no/api/tenantcontroller/logo?tenantId=" +this.tenantId; // TODO; + this.apiService.tenant.id;
+    return "https://auth.thundertech.no/api/tenantcontroller/logo?tenantId=" +this.tenantId;
   }
 }

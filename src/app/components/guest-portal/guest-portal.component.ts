@@ -30,7 +30,9 @@ export class GuestPortalComponent {
     private dialog: MatDialog, 
     private translationService: TranslationService ) {
     this.token = route.snapshot.params['token'];
-    
+  }
+
+  public load() {
     this.apiService.guestPortalController.get(this.token).subscribe(res => {
       this.portal = res;
     })

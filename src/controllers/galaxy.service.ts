@@ -18,6 +18,19 @@ export class GalaxyService {
 
   }
 
+  
+  public initByTenantId(tenantId: string) {
+    let opt = { headers: {'TenantId' : tenantId}, withCredentials: true};
+    return this.httpService.get<any[]>('https://auth.thundertech.no/api/tenantcontroller/tenantendpoints', opt )
+        .pipe(
+        map(response => {
+          const ret = new TenantBookingEngineConfig(tenantId, "guestportal");
+          ret.workerNodes = response;
+          return ret;
+        })
+      );
+  }
+
   public init(bookingEngineConfigs: TenantBookingEngineConfig[]) {
 
     let subs = bookingEngineConfigs.map(b => {
