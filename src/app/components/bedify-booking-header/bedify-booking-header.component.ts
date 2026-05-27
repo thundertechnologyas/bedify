@@ -79,12 +79,30 @@ export class BedifyBookingHeader implements AfterViewInit {
       
       translationService.changeLang(this._selectedLang);
 
+      this.dataService.onMultipropertyLoaded().subscribe(res => {
+        if (res && res.length > 0) {
+          let checkinDate = new Date(res[0].checkin as any);
+          let checkoutDate = new Date(res[0].checkout as any);
+
+          this.dataService.headerFilter.checkin = checkinDate; 
+          this.dataService.headerFilter.checkout = checkoutDate;
+
+          this.patchValues();
+        }
+      })
+
       this.group.valueChanges.subscribe(res => {
 
-        let checkinDate = new Date(res.checkin as any);
-        let checkoutDate = new Date(res.checkout as any);
-        
-        if (checkoutDate < checkinDate) {
+        const checkinDate = new Date(res.checkin as any);
+        const checkoutDate = new Date(res.checkout as any);
+
+        // Calculate minimum valid checkout (checkin + 1 day)
+        const minCheckout = new Date(checkinDate);
+        minCheckout.setDate(minCheckout.getDate() + 1);
+
+        // Enforce at least 1 day difference
+        if (checkoutDate < minCheckout) {
+
           let nextDay = new Date(checkinDate);
           nextDay.setDate(checkinDate.getDate() + 1);
           
@@ -115,6 +133,7 @@ export class BedifyBookingHeader implements AfterViewInit {
   }
 
   isMultiPropertyActivated() {
+    console.log(this.multiProperty, "multiprop");
     return this.multiProperty.toLowerCase() == "true";
   }
 
