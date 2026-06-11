@@ -1,6 +1,6 @@
 {
-    "bookingengine.1" : "Checkin",
-    "bookingengine.2" : "Checkout",
+    "bookingengine.1" : "Check-in",
+    "bookingengine.2" : "Check-out",
     "bookingengine.4" : "Rooms: {{rooms}}, guests: {{guests}}",
     "bookingengine.5" : "Discount",
     "bookingengine.6" : "Cancel",
@@ -69,6 +69,9 @@
     "bookingengine.72" : "We have only {{count}} room(s) available", 
     "bookingengine.73" : "Sold out", 
     "bookingengine.74" : "From {{amount}}", 
+    "bookingengine.75" : "Rooms",
+    "bookingengine.76" : "guests",
+    "bookingengine.77" : "Total",
 
     "guestportal.1" : "Guests",
     "guestportal.2" : "Your room",

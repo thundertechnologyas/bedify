@@ -170,15 +170,16 @@ export class BedifyBookingHeader implements AfterViewInit {
     return this.dataService.group.checkout;
   }
 
-  get roomsAndGuests() {
-    let rooms = this.dataService.group.rooms;
-    
+  get rooms() {
+    return this.dataService.group.rooms.length;
+  }
+
+  get guests() {
     let guests = 0;
-    rooms.forEach(r => {
+    this.dataService.group.rooms.forEach(r => {
       guests += r.adults;
     });
-
-    return "Rooms: " + rooms.length + ", guests: " + guests;
+    return guests;
   }
 
   showRoomConfig() {

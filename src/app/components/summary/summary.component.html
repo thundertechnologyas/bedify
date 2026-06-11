@@ -14,20 +14,28 @@
 </div>
 
 <div class="rooms">
-    Rooms:
+    {{
+        'bookingengine.75' | translate
+    }}:
     <div *ngFor="let room of this.group.rooms">
         {{
             room.roomIndex
         }}. 
         {{
             getSelectedRoom(room).rentalObjectName 
-        }}, Guests: {{ room.adults }} 
+        }}, 
+        {{
+            'bookingengine.76' | translate
+        }}:
+        {{ room.adults }} 
     </div>
 </div>
 
 <div class="total">
     <div>
-        Total
+        {{
+            'bookingengine.77' | translate
+        }}
     </div>
     <div>
         {{

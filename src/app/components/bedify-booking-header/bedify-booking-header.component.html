@@ -41,7 +41,10 @@
             <div class="guestsselection" (click)="showRoomConfig()">
                 <div>
                     {{
-                        this.roomsAndGuests
+                        'bookingengine.4' | translate : {
+                            rooms : rooms,
+                            guests : guests
+                        }
                     }}
                 </div>
                 <div>
