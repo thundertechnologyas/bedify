@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BedifyBookingService } from '../../../services/bedify-booking.service';
@@ -16,7 +16,7 @@ import { BedifyProgressService } from '../../../services/bedify-progress.service
   templateUrl: './bedify-booking-header.component.html',
   styleUrls: ['./bedify-booking-header.component.scss']
 })
-export class BedifyBookingHeader implements AfterViewInit {
+export class BedifyBookingHeader implements AfterViewInit, OnInit {
 
   public bookingResponseCode = "";
   public bookingCodeResponseMetaData = {};
@@ -76,9 +76,7 @@ export class BedifyBookingHeader implements AfterViewInit {
       if (sessionStorage.getItem("bedify_booking_selected_lang")) {
         this._selectedLang = sessionStorage.getItem("bedify_booking_selected_lang") as any;
       }
-      
-      translationService.changeLang(this._selectedLang);
-
+        
       this.dataService.onMultipropertyLoaded().subscribe(res => {
         if (res && res.length > 0) {
           let checkinDate = new Date(res[0].checkin as any);
@@ -119,6 +117,12 @@ export class BedifyBookingHeader implements AfterViewInit {
       this.dataService.headerSubjectNotEmit.subscribe(res => {
         this.patchValues();
       })
+  }
+
+  ngOnInit(): void {
+    if (this._selectedLang) {
+      this.translationService.changeLang(this._selectedLang);
+    }
   }
 
   patchValues() {
