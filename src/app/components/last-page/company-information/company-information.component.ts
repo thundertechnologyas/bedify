@@ -36,8 +36,18 @@ export class CompanyInformationComponent implements AfterViewInit{
 
   selectedPrefix: any;
 
+  forceCompanyDetails: boolean = false;
+
   constructor(private dataService: BedifyBookingService) {
-    this.company = this.dataService.group.company
+    this.company = this.dataService.group.company;
+    
+    let config = this.dataService.getBookingEngineConfig();
+
+    if (config != null && config.bookingEngine != null) {
+      console.log(config);
+      this.forceCompanyDetails = config.bookingEngine.requireCompanyDetails;
+    }
+    
 
     this.companyForm.valueChanges.subscribe(res => {
       this._company.name = res.name as any;

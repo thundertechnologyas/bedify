@@ -1,4 +1,4 @@
-<div class="companyslider" >
+<div class="companyslider" [hidden]="this.forceCompanyDetails">
   <mat-slide-toggle #companySlider [formControl]="this.activatedFormControl">
     <div class="text">
       {{
@@ -9,7 +9,7 @@
   </mat-slide-toggle>
 </div>
 
-<div class="company" *ngIf="companySlider.checked">
+<div class="company" *ngIf="companySlider.checked || this.forceCompanyDetails">
 
   <form class="companydetails" [formGroup]="this.companyForm">
 

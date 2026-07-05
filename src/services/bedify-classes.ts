@@ -19,8 +19,8 @@ export class BookingEngine {
     public currency = "";
     public termsAndConditions = "";
     public payPartial = false;
+    public requireCompanyDetails = false;
     public partialPaymentPercentage = 0;
-
     public hotelName = "";
     public hotelAddress = "";
     public hotelCity = "";
