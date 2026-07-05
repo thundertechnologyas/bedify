@@ -11,7 +11,7 @@
       </div>
       <div class="gallary" *ngIf="this.hasImages(room)">
         <div [photoGalleryGroup]="{ arrowEl: true, indexIndicatorSep: ' - '}" class="photo">
-          <div class="products-item" *ngFor="let img of room.images; let i = index" [hidden]="i > 0">
+          <div class="products-item" *ngFor="let img of room.images; let i = index">
             <div class="products-item-name"></div>
             <div class="products-item-image" [photoGallery]="this.getImageEndpoint() + img">
               <img [src]="this.getImageEndpoint() + img" />
