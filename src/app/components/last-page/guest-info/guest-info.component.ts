@@ -76,7 +76,7 @@ export class GuestInfoComponent implements AfterViewInit {
     this.formGroup.get("firstName")?.addValidators([Validators.required]);
     this.formGroup.get("lastName")?.addValidators([Validators.required]);
 
-    if (this.guestInfo.guestIndex == 1) {
+    if (this.shouldShowEmailAndPhone) {
       this.formGroup.get("email")?.addValidators([Validators.required, Validators.email]);
       this.formGroup.get("phoneNumber")?.addValidators([Validators.required]);
     }
@@ -130,5 +130,17 @@ export class GuestInfoComponent implements AfterViewInit {
     
     this._guestInfo.phonePrefix = this.selectedPrefix.dial_code;
     // this.dataService.saveToSession(); - TODO
+  }
+
+  get shouldShowEmailAndPhone() {
+    let config = this.dataService.getBookingEngineConfig();
+
+    if (config != null && config.bookingEngine != null) {
+      if (config.bookingEngine.requireEmailAndPhoneAllGuests) {
+        return true;
+      }
+    }
+
+    return this.guestInfo.guestIndex < 2;
   }
 }

@@ -20,6 +20,7 @@ export class BookingEngine {
     public termsAndConditions = "";
     public payPartial = false;
     public requireCompanyDetails = false;
+    public requireEmailAndPhoneAllGuests = false;
     public partialPaymentPercentage = 0;
     public hotelName = "";
     public hotelAddress = "";
