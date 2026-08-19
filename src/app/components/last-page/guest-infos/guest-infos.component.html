@@ -33,15 +33,17 @@
           </div>
       </div>
 
-      <div class="dates">
-        <i class="fa fa-calendar"></i>
-        {{
-          this.dataService.group.checkin  | date : 'short'
-        }} - 
-        {{
-          this.dataService.group.checkout | date : 'short' 
-        }}
-      </div>
+      @if (this.group.bookingCodeType != "allotment") {
+        <div class="dates">
+          <i class="fa fa-calendar"></i>
+          {{
+            this.dataService.group.checkin  | date : 'short'
+          }} - 
+          {{
+            this.dataService.group.checkout | date : 'short' 
+          }}
+        </div>
+      }
     </div>
 
     <div *ngFor="let g of room.guests; let i = index" class="guest" >

@@ -2,16 +2,18 @@
     Summary
 </div>
 
-<div class="dates">
-    Reservation:
-    <div>
-        {{
-            this.group.checkin | date : 'short'
-        }} - {{
-            this.group.checkout | date : 'short'
-        }}
+@if (this.group.bookingCodeType != "allotment") {
+    <div class="dates">
+        Reservation:
+        <div>
+            {{
+                this.group.checkin | date : 'short'
+            }} - {{
+                this.group.checkout | date : 'short'
+            }}
+        </div>
     </div>
-</div>
+}
 
 <div class="rooms">
     {{

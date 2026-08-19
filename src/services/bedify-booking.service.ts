@@ -46,11 +46,13 @@ export class BedifyBookingService {
   public headerChanged(checkin: string | null | undefined, 
     checkout: string | null | undefined, 
     discountCode: string | null | undefined,
+    discountCodeType: string | null | undefined,
     bookingEngineId: string | null | undefined
   ) {
     this.setSessionItem("checkin", checkin);
     this.setSessionItem("checkout", checkout);
     this.setSessionItem("discountCode", discountCode);
+    this.setSessionItem("bookingCodeType", discountCodeType);
     this.setSessionItem("bookingEngineId", bookingEngineId);
 
     // We need to remove the discount code if we change booking engine as the discount code 
@@ -78,6 +80,7 @@ export class BedifyBookingService {
   private removeDiscountCode() {
     sessionStorage.removeItem("discountCode");
     this.headerFilter.discountCode = null;
+    this.headerFilter.bookingCodeType = null;
   }
 
   private setSessionItem(key: string, item: string | null | undefined) {
@@ -92,6 +95,7 @@ export class BedifyBookingService {
     if (sessionStorage.getItem("checkin")) { this.headerFilter.checkin = new Date(sessionStorage.getItem("checkin") as any); }
     if (sessionStorage.getItem("checkout")) { this.headerFilter.checkout = new Date(sessionStorage.getItem("checkout") as any); }
     if (sessionStorage.getItem("discountCode")) { this.headerFilter.discountCode = sessionStorage.getItem("discountCode"); }
+    if (sessionStorage.getItem("bookingCodeType")) { this.headerFilter.bookingCodeType = sessionStorage.getItem("bookingCodeType"); }
     if (sessionStorage.getItem("bookingEngineId")) { this.headerFilter.bookingEngineId = sessionStorage.getItem("bookingEngineId"); }
     if (sessionStorage.getItem("rooms")) { this.headerFilter.rooms = JSON.parse(sessionStorage.getItem("rooms") as string); }
 
@@ -178,6 +182,7 @@ export class BedifyBookingService {
     group.checkout = this.headerFilter.checkout ;
     group.rooms = this.headerFilter.rooms;
     group.bookingCode = this.headerFilter.discountCode || "";
+    group.bookingCodeType = this.headerFilter.bookingCodeType || "";
 
 
     if (group.rooms.length == 0) {
@@ -288,6 +293,7 @@ export class BedifyBookingService {
     this.headerFilter.checkin = this.group.checkin;
     this.headerFilter.checkout = this.group.checkout;
     this.headerFilter.discountCode = this.group.bookingCode;
+    this.headerFilter.bookingCodeType = this.group.bookingCodeType;
     this.headerFilter.bookingEngineId = this.group.bookingEngineId;
 
     let groupLoadedEvent = new GroupLoadedEvent();

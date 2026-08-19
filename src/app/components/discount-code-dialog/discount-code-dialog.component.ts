@@ -33,7 +33,9 @@ export class DiscountCodeDialogComponent {
       new Date(this.group.checkout)
       ).subscribe(res => {
         if (res.responseCode == "ok") {
-          this.dialogRef.close(this.code);
+          this.dialogRef.close({code: this.code, type: "normal"});
+        } else if (res.responseCode == "allotment") {
+          this.dialogRef.close({code: this.code, type: 'allotment'});
         } else {
           this.bookingResponseCode = res.responseCode;
           this.bookingCodeResponseMetaData = res.metaData;
@@ -42,6 +44,6 @@ export class DiscountCodeDialogComponent {
   }
 
   diconnect() {
-    this.dialogRef.close("");
+    this.dialogRef.close({code: "", type: "normal"});
   }
 }

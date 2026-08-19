@@ -65,7 +65,7 @@ export class RoomConfigComponent implements AfterViewInit {
 
     if (control == null) {
       control = new FormControl();
-      control.patchValue(room.availableVariations[0].variationId);
+      control.patchValue(room.availableVariations[0]?.variationId);
       this.variationSelect.set(room.rentalObjectId, control);
     }
 

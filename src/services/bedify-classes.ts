@@ -2,6 +2,7 @@ export class HeaderFilter {
     public checkin : Date | null | undefined = null;
     public checkout : Date | null | undefined  = null;
     public discountCode : string | null | undefined  = null;
+    public bookingCodeType : string | null | undefined  = null;
     public bookingEngineId : string | null | undefined  = null;
     public rooms: RoomConfig[] = [];
 }
@@ -40,6 +41,7 @@ export class GroupBooking {
     public source = "bookingengine";
     public bookingEngineId = "";
     public bookingCode = "";
+    public bookingCodeType = "";
     public companySelected = false;
     public hotelCollect = false;
     public comment: string = "";

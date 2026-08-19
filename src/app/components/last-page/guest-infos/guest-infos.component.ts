@@ -23,6 +23,10 @@ export class GuestInfosComponent {
     });
   }
 
+  get group() {
+    return this.dataService.getGroup();
+  }
+
   getVariation(roomConfig: RoomConfig) {
     let selectedRoom  = this.getSelectedRoom(roomConfig);
 

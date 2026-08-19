@@ -59,6 +59,7 @@ export class BedifyBookingHeader implements AfterViewInit, OnInit {
     checkin: new FormControl('', [Validators.required]),
     checkout: new FormControl('', [Validators.required]),
     discountCode: new FormControl(''),
+    type: new FormControl('normal'),
     bookingEngineId: new FormControl('')
   });
 
@@ -111,7 +112,13 @@ export class BedifyBookingHeader implements AfterViewInit, OnInit {
           return;
         }
 
-        this.dataService.headerChanged(res.checkin, res.checkout, res.discountCode, res.bookingEngineId);
+        this.dataService.headerChanged(res.checkin, res.checkout, res.discountCode, res.type, res.bookingEngineId);
+
+        if (res.type == 'allotment') {
+          this.group.disable({ emitEvent: false });
+        } else {
+          this.group.enable({ emitEvent: false });
+        } 
       });
 
       this.dataService.headerSubjectNotEmit.subscribe(res => {
@@ -195,9 +202,19 @@ export class BedifyBookingHeader implements AfterViewInit, OnInit {
     let dialogRef = this.dialog.open(DiscountCodeDialogComponent);    
 
     dialogRef.afterClosed().subscribe(res => {
-      this.group.patchValue({
-        discountCode: res
-      });
+      if (res.type == 'normal') {
+        this.group.patchValue({
+          discountCode: res.code,
+          type : "normal"
+        });
+      }
+      
+      if (res.type == 'allotment') {
+        this.group.patchValue({
+          discountCode: res.code,
+          type : "allotment"
+        });
+      }
     })
   }
 
