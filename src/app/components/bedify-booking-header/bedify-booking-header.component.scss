@@ -30,12 +30,13 @@
 .guestsselection {
     cursor: pointer;
     border-bottom: solid 1px #666;
-    height: 35px;
+    height: 56px;
     padding-top: 20px;
     padding-left: 20px;
     background-color: #FFF;
     border-radius: 5px 5px 0px 0px;
     min-height: 35px;
+    box-sizing: border-box;
 }
 
 .bedify-header-inner {

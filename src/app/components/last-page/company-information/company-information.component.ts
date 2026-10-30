@@ -36,7 +36,7 @@ export class CompanyInformationComponent implements AfterViewInit{
 
   selectedPrefix: any;
 
-  forceCompanyDetails: boolean = false;
+  public forceCompanyDetails: boolean = false;
 
   constructor(private dataService: BedifyBookingService) {
     this.company = this.dataService.group.company;
@@ -44,8 +44,10 @@ export class CompanyInformationComponent implements AfterViewInit{
     let config = this.dataService.getBookingEngineConfig();
 
     if (config != null && config.bookingEngine != null) {
-      console.log(config);
       this.forceCompanyDetails = config.bookingEngine.requireCompanyDetails;
+      if (this.forceCompanyDetails) {
+         this._company.activated = true;
+      }
     }
     
 
